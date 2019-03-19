@@ -36,19 +36,3 @@ variable "Counts" {
   # App
 }
 
-variable "Region" {
-  type = "string"
-  description = "target AWS region"
-}
-
-variable "KeyId" {
-  type = "string"
-  description = "Access key ID. Can be empty if terraform is run on EC2 instance with proper IAM role."
-  default = ""
-}
-
-variable "SecretKey" {
-  type = "string"
-  description = "Secret Access Key. Can be empty if terraform is run on EC2 instance with proper IAM role."
-  default = ""
-}

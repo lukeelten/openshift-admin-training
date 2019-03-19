@@ -186,13 +186,6 @@ resource "aws_security_group" "nodes-sg" {
       self             = true
     },
     {
-      // EFS
-      from_port        = 2049
-      to_port          = 2049
-      protocol         = "tcp"
-      security_groups  = ["${aws_security_group.storage-sg.id}"]
-    },
-    {
       // Elastic Search
       from_port        = 9300
       to_port          = 9300

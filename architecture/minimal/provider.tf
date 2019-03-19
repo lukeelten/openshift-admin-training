@@ -1,7 +1,4 @@
 provider "aws" {
-  region = "${var.Region}"
-  access_key = "${var.KeyId}"
-  secret_key = "${var.SecretKey}"
-
+  region = "eu-central-1"
   version = "1.60"
 }
