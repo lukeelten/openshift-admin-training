@@ -1,0 +1,59 @@
+[OSEv3:children]
+masters
+nodes
+etcd
+
+[OSEv3:vars]
+#openshift_enable_unsupported_configurations=true
+
+
+ansible_user=centos
+ansible_become=true
+ansible_ssh_common_args='-o StrictHostKeyChecking=no -o ControlMaster=auto -o ControlPersist=30m'
+
+deployment_type=origin
+openshift_deployment_type=origin
+
+openshift_clock_enable=true
+openshift_use_dnsmasq=true
+os_firewall_use_firewalld=true
+
+ansible_service_broker_install=false
+osm_use_cockpit=true
+#openshift_master_cluster_method=native
+
+# release version, check hardcoded logging images if you change this. Yan
+
+openshift_release='v3.11' 
+
+# apps subdomain definition
+openshift_master_default_subdomain='apps.cc-openshift.de'
+
+# cluster masters domain definition
+openshift_master_cluster_hostname='master.cc-openshift.de'
+openshift_master_cluster_public_hostname='master.cc-openshift.de'
+
+
+
+openshift_logging_install_logging=false
+openshift_metrics_install_metrics=false
+
+# openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra":"true"}
+#openshift_metrics_schema_installer_image=openshift/origin-metrics-schema-installer:v3.11
+
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
+openshift_master_htpasswd_users={'admin': '$apr1$zgSjCrLt$1KSuj66CggeWSv.D.BXOA1', 'user': '$apr1$.gw8w9i1$ln9bfTRiD6OwuNTG5LvW50'}
+
+
+openshift_disable_check=docker_storage,memory_availability
+
+[masters]
+ec2-3-120-158-248.eu-central-1.compute.amazonaws.com openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
+
+[etcd]
+ec2-3-120-158-248.eu-central-1.compute.amazonaws.com
+
+[nodes]
+ec2-3-120-158-248.eu-central-1.compute.amazonaws.com openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
+ec2-3-120-126-81.eu-central-1.compute.amazonaws.com openshift_node_group_name='node-config-compute' openshift_schedulable=true
+ec2-35-158-131-116.eu-central-1.compute.amazonaws.com openshift_node_group_name='node-config-compute' openshift_schedulable=true
