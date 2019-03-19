@@ -7,8 +7,6 @@ resource "aws_launch_configuration" "application-lc" {
   user_data       = "${file("assets/init.sh")}"
   security_groups = ["${aws_security_group.nodes-sg.id}"]
 
-  iam_instance_profile = "${aws_iam_instance_profile.node-profile.name}"
-
   root_block_device {
     volume_type = "gp2"
     volume_size = 25
@@ -20,14 +18,13 @@ resource "aws_launch_configuration" "application-lc" {
 }
 
 resource "aws_autoscaling_group" "application-scaling" {
-  depends_on = ["aws_nat_gateway.private-nat", "aws_route.private_route"]
   name                 = "${var.ProjectId}-application-scaling-group"
   launch_configuration = "${aws_launch_configuration.application-lc.name}"
 
   min_size             = "${var.Counts["App"]}"
   max_size             = "${var.Counts["App"]}"
 
-  vpc_zone_identifier  = ["${aws_subnet.subnets-private.*.id}"]
+  vpc_zone_identifier  = ["${aws_subnet.subnets-public.*.id}"]
 
   lifecycle {
     create_before_destroy = true
@@ -54,12 +51,6 @@ resource "aws_autoscaling_group" "application-scaling" {
   tag {
     key = "ProjectId"
     value = "${var.ProjectId}"
-    propagate_at_launch = true
-  }
-
-  tag {
-    key = "kubernetes.io/cluster/openshift"
-    value = "${var.ClusterId}"
     propagate_at_launch = true
   }
 }

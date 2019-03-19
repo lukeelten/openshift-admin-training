@@ -7,7 +7,6 @@ resource "aws_vpc" "vpc" {
     Name = "${var.ProjectName} - VPC"
     Project = "${var.ProjectName}"
     ProjectId = "${var.ProjectId}"
-    "kubernetes.io/cluster/openshift" = "${var.ClusterId}"
   }
 }
 
@@ -18,7 +17,6 @@ resource "aws_internet_gateway" "igw" {
     Name = "${var.ProjectName} - Internet Gateway"
     Project = "${var.ProjectName}"
     ProjectId = "${var.ProjectId}"
-    "kubernetes.io/cluster/openshift" = "${var.ClusterId}"
   }
 }
 
@@ -34,7 +32,6 @@ resource "aws_route_table" "public-rt" {
     Name = "${var.ProjectName} - Public Route Table"
     Project = "${var.ProjectName}"
     ProjectId = "${var.ProjectId}"
-    "kubernetes.io/cluster/openshift" = "${var.ClusterId}"
   }
 }
 

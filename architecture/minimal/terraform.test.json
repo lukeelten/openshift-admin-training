@@ -1,22 +1,16 @@
 {
   "ProjectName":"Test Project",
   "ProjectId":"test-project",
-  "PublicKey":"ssh-rsa AAAA...",
+  "PublicKey":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDUoxXpxlVcIyLYhvTTHT/dIcd4xnUYrSC/3WGslJgzZuTmdR6Rfg2MIblzQ9Y6EF8eYCme3Ks3Bud4IP1q8W77fLpti1xHlvU72Ri9PB9Sc5/cQnBUfB5X8XIjTrko30jyWaB32b83S+Tn3ukmbLHY3D7d8hMPWgMRcCT9gAmQ/sA1YVtMMl4WFgt4pvNGhR8MODQtD091oq2OZxgz2BKhZ26G27BR++OCZ2iLzs85HuRxTKDj/8aAsFQ368swNoguIfCO3+XL9b9Hmx1VHBqrfJNYE3LB7/rS6Uy5c539AALtiM5IIBv07mdMPT15ss2WMB2aC+gcFKbQ3nyPOBLaWDXfAvDV1V6dF2ilUA4g8TgGSBr6CZKvDwHXtuFOHudc8Oy37oOfyaztqS15CP075pbQvJqfVo0KefYRv8ycetLl8HzkOWxWltjtmYbdMrjF3COeq4AexkgSZ4X+MYiap+E13m7OCPwCc5xvUR5CgtMK+X23NdguQvaiZrUDBV2kvH2APkeUpQjJho6wJV5vourQgr6MPmZpbUeFgZAQ92CNBdfWe2Df+G51Uc4OQLe0fTnDkRphBIj7u6Ylndd1D1W3G97L/E9HKVMXf7myl74TyAvzkf+lTCTCbEejb+dr+MIXhEUqjykH2Rrw2IBmePbDK4D0Yi77KNsgK4bYCQ== lukeelten@lukesPC",
   "Zone":"cc-openshift.de",
   "Region":"eu-central-1",
   "Counts":{
-    "Master":3,
-    "Infra":3,
-    "App":6
+    "Master": 1,
+    "App":2
   },
   "Types":{
-    "Bastion":"t2.nano",
+    "Bastion":"t3.medium",
     "Master":"m5.xlarge",
-    "Infra":"m5.large",
     "App":"m5.large"
-  },
-  "EnableEfs":true,
-  "EncryptEfs":true,
-  "RegistryS3":true,
-  "ClusterId":"1"
+  }
 }
