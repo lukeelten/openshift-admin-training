@@ -1,5 +1,6 @@
 resource "aws_instance" "master-node" {
-
+  depends_on      = ["aws_internet_gateway.igw"]
+  
   ami             = "${data.aws_ami.centos.id}"
   instance_type   = "${var.Types["Master"]}"
   key_name        = "${aws_key_pair.public-key.key_name}"

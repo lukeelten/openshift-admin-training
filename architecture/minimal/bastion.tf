@@ -1,4 +1,7 @@
-
+resource "random_integer" "bastion-subnet" {
+  min     = 1
+  max     = 99999
+}
 
 resource "aws_instance" "bastion" {
   depends_on             = ["aws_internet_gateway.igw"]
@@ -7,7 +10,7 @@ resource "aws_instance" "bastion" {
   instance_type          = "${var.Types["Bastion"]}"
   key_name               = "${aws_key_pair.public-key.key_name}"
 
-  subnet_id              = "${aws_subnet.subnets-public.*.id[0]}"
+  subnet_id              = "${aws_subnet.subnets-public.*.id[random_integer.bastion-subnet.result % aws_subnet.subnets-public.count]}"
 
   user_data              = "${file("assets/bastion.sh")}"
   vpc_security_group_ids = ["${aws_security_group.bastion-sg.id}"]
