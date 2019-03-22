@@ -4,16 +4,6 @@ variable "ProjectName" {
   description = "Descriptive name of project"
 }
 
-variable "ProjectId" {
-  type = "string"
-  description = "Project Id contains only lowercase alphanumerical characters."
-}
-
-variable "PublicKey" {
-  description = "Public SSH key which will be used for EC2 instances to access."
-  type = "string"
-}
-
 variable "Types" {
   description = "Node types: EC2 instance types to use for different nodes"
   type = "map"
@@ -36,3 +26,7 @@ variable "Counts" {
   # App
 }
 
+variable "Training" {
+  description = "Nummer der Training Teilnehmer"
+  type = "string"
+}

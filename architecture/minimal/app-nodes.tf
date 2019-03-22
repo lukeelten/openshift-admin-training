@@ -3,7 +3,7 @@ resource "aws_instance" "app-node" {
 
   ami             = "${data.aws_ami.centos.id}"
   instance_type   = "${var.Types["App"]}"
-  key_name        = "${aws_key_pair.public-key.key_name}"
+  key_name        = "training_${var.Training}"
   user_data       = "${file("assets/init.sh")}"
 
   vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}"]
@@ -22,8 +22,7 @@ resource "aws_instance" "app-node" {
 
   tags {
     Type = "app"
-    Name = "${var.ProjectName} - Application Node ${count.index + 1}"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training${var.Training} - App ${count.index + 1}"
+    Training = "training${var.Training}"
   }
 }
