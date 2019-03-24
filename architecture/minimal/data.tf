@@ -22,11 +22,3 @@ data "aws_route53_zone" "existing-zone" {
   name = "${var.Zone}"
   private_zone = false
 }
-
-output "ami-id" {
-  value = "${data.aws_ami.centos.id}"
-}
-
-output "ami-name" {
-  value = "${data.aws_ami.centos.name}"
-}

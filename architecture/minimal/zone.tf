@@ -1,7 +1,7 @@
 
 resource "aws_route53_record" "router-record" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "*.apps.${var.Zone}"
+  name    = "*.apps.training${var.Training}.${var.Zone}"
   type = "CNAME"
 
   ttl = "300"
@@ -10,7 +10,7 @@ resource "aws_route53_record" "router-record" {
 
 resource "aws_route53_record" "master-record" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "master.${data.aws_route53_zone.existing-zone.name}"
+  name    = "master.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
 
   ttl = "300"
@@ -19,7 +19,7 @@ resource "aws_route53_record" "master-record" {
 
 resource "aws_route53_record" "bastion-record" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "bastion.${data.aws_route53_zone.existing-zone.name}"
+  name    = "bastion.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
 
   ttl = "300"
@@ -28,7 +28,7 @@ resource "aws_route53_record" "bastion-record" {
 
 resource "aws_route53_record" "app-records" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "app${count.index}.${data.aws_route53_zone.existing-zone.name}"
+  name    = "app${count.index}.traning${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
 
   count = "${var.Counts["App"]}"

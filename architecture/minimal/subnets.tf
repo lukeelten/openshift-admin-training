@@ -8,9 +8,8 @@ resource "aws_subnet" "subnets-public" {
   map_public_ip_on_launch = true
 
   tags {
-    Name = "${var.ProjectName} - Public Subnet ${count.index + 1}"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Public Subnet ${count.index + 1}"
+    Training = "${var.Training}"
   }
 }
 

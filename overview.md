@@ -42,13 +42,23 @@
 
 ## LDAP Anbindung & User Management
 
+- LDAP Anbinding
+- Identity Provider
+- Htpasswd
+- Deny All
+- Allow All
+- Diversere Social Logins
+- Generic OpenID Connect
+- LDAP
+- Keystone (OpenStack Identity Provider)
+
 
 ## Cluster Updates & Scale Up
 - Cluster Updates mit Node evakuieren
 - System Updates
 - Docker Updates
 - Node ScaleUp
-- Master ScaleUp (Vorsicht nur umgrade Zahlen)
+- Master ScaleUp (Vorsicht nur ungrade Zahlen)
 
 ## Persistent Storage mit Container Native Storage
 - GlusterFS
@@ -64,6 +74,7 @@
 
 ## Externe Image Registry
 - Auslagern des Registry PV nach 
+- Beispiel mit Nexus
 
 ## Security Concepts
 - SELinux

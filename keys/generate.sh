@@ -32,7 +32,7 @@ add_key() {
 provider
 
 HOST_KEY=$(cat "$HOME/.ssh/id_rsa.pub")
-add_key "_master" "$HOST_KEY"
+add_key "99" "$HOST_KEY"
 
 for i in {0..9}; do
     FILENAME="training$i"

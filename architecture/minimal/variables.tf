@@ -1,9 +1,3 @@
-# Project name
-variable "ProjectName" {
-  type = "string"
-  description = "Descriptive name of project"
-}
-
 variable "Types" {
   description = "Node types: EC2 instance types to use for different nodes"
   type = "map"
@@ -16,6 +10,7 @@ variable "Types" {
 variable "Zone" {
   type = "string"
   description = "Existing DNS zone to put openshift cluster in"
+  default = "cc-openshift.de"
 }
 
 variable "Counts" {

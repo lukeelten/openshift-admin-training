@@ -1,6 +1,6 @@
 resource "aws_security_group" "bastion-sg" {
-  description = "${var.ProjectName} Security Group for Bastion server"
-  name        = "${var.ProjectId}-bastion-sg"
+  description = "Training ${var.Training} Security Group for Bastion server"
+  name        = "training-${var.Training}-bastion-sg"
   vpc_id      = "${aws_vpc.vpc.id}"
 
   ingress = [
@@ -26,15 +26,14 @@ resource "aws_security_group" "bastion-sg" {
   }
 
   tags {
-    Name = "${var.ProjectName} - Bastion SG"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Bastion SG"
+    Training = "${var.Training}"
   }
 }
 
 resource "aws_security_group" "master-sg" {
-  description = "${var.ProjectName} Security Group for Master Nodes"
-  name        = "${var.ProjectId}-master-sg"
+  description = "Training ${var.Training} Security Group for Master Nodes"
+  name        = "training-${var.Training}-master-sg"
   vpc_id      = "${aws_vpc.vpc.id}"
 
   ingress = [
@@ -67,15 +66,14 @@ resource "aws_security_group" "master-sg" {
   }
 
   tags {
-    Name = "${var.ProjectName} - Master Nodes SG"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Master Nodes SG"
+    Training = "${var.Training}"
   }
 }
 
 resource "aws_security_group" "etcd-sg" {
-  description = "${var.ProjectName} Security Group for ETCD"
-  name        = "${var.ProjectId}-etcd-sg"
+  description = "Training ${var.Training} Security Group for ETCD"
+  name        = "training-${var.Training}-etcd-sg"
   vpc_id      = "${aws_vpc.vpc.id}"
 
   ingress = [
@@ -101,15 +99,14 @@ resource "aws_security_group" "etcd-sg" {
   }
 
   tags {
-    Name = "${var.ProjectName} - ETCD SG"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - ETCD SG"
+    Training = "${var.Training}"
   }
 }
 
 resource "aws_security_group" "infra-sg" {
-  description = "${var.ProjectName} Security Group for Infrastructure Nodes"
-  name        = "${var.ProjectId}-infra-sg"
+  description = "Training ${var.Training} Security Group for Infrastructure Nodes"
+  name        = "training-${var.Training}-infra-sg"
   vpc_id      = "${aws_vpc.vpc.id}"
 
   ingress = [
@@ -137,15 +134,14 @@ resource "aws_security_group" "infra-sg" {
   }
 
   tags {
-    Name = "${var.ProjectName} - Infrastructure Nodes SG"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Infrastructure Nodes SG"
+    Training = "${var.Training}"
   }
 }
 
 resource "aws_security_group" "nodes-sg" {
-  description = "${var.ProjectName} Security Group for Nodes"
-  name        = "${var.ProjectId}-nodes-sg"
+  description = "Training ${var.Training} Security Group for Nodes"
+  name        = "training-${var.Training}-nodes-sg"
   vpc_id      = "${aws_vpc.vpc.id}"
 
   ingress = [
@@ -223,8 +219,7 @@ resource "aws_security_group" "nodes-sg" {
   }
 
   tags {
-    Name = "${var.ProjectName} - Nodes SG"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Nodes SG"
+    Training = "${var.Training}"
   }
 }
