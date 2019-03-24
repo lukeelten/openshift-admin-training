@@ -5,6 +5,12 @@ provider "aws" {
 
 data "aws_availability_zones" "frankfurt" {}
 
+data "aws_route53_zone" "existing-zone" {
+  name = "cc-openshift.de"
+  private_zone = false
+}
+
+
 data "aws_ami" "centos" {
   most_recent = true
 
@@ -112,7 +118,7 @@ resource "aws_security_group" "nexus-sg" {
   }
 }
 
-resource "aws_instance" "app-node" {
+resource "aws_instance" "nexus" {
   depends_on      = ["aws_internet_gateway.igw"]
 
   ami             = "${data.aws_ami.centos.id}"
@@ -134,6 +140,15 @@ resource "aws_instance" "app-node" {
 
   tags {
     Name = "Nexus Example"
+    Type = "nexus"
   }
 }
 
+resource "aws_route53_record" "nexus-record" {
+  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  name    = "nexus.${data.aws_route53_zone.existing-zone.name}"
+  type = "CNAME"
+
+  ttl = "300"
+  records = ["${aws_instance.nexus.public_dns}"]
+}

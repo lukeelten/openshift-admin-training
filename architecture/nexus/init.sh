@@ -1,15 +1,15 @@
 #!/bin/bash
 
 yum -y update
-yum -y install epel-release
-yum -y install docker
-systemctl enable docker
-systemctl start docker
+yum -y install epel-release NetworkManager
+yum -y install docker haveged nano git
+systemctl enable docker haveged NetworkManager
+systemctl start docker haveged NetworkManager
 
 curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
 chmod +x /usr/bin/docker-compose
 
-echo <<EOF
+NEXUS=$(cat <<EOF
 version: '3'
 
 volumes:
@@ -21,14 +21,16 @@ services:
     restart: always
     image: sonatype/nexus3
     expose:
-      - 8081
+      - "8081"
       - "5000-5010"
     ports:
-      - 80:8081
-      - "5000-5010"
+      - "80:8081"
+      - "5000-5010:5000-5010"
     volumes:
       - nexus:/nexus-data
-EOF > /nexus.yml
+EOF
+)
+echo "$NEXUS" > /nexus.yml
 docker-compose -f /nexus.yml -p nexus up -d
 
 

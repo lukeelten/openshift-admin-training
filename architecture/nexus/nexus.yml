@@ -11,10 +11,10 @@ services:
     restart: always
     image: sonatype/nexus3
     expose:
-      - 8081
+      - "8081"
       - "5000-5010"
     ports:
-      - 80:8081
-      - "5000-5010"
+      - "80:8081"
+      - "5000-5010:5000-5010"
     volumes:
       - nexus:/nexus-data
