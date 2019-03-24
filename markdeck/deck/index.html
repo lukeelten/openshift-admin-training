@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+
+    <title>OpenShift Installation &amp; Administration</title>
+
+    <meta name="description" content="OpenShift Installation &amp; Administration" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" href="assets/3rdparty/reveal.js/css/reveal.css" />
+    <link rel="stylesheet" href="assets/3rdparty/reveal.js/css/theme/simple.css" id="theme" />
+
+    <link rel="stylesheet" href="assets/markdeck/styles/zenburn.css" />
+
+        <link rel="stylesheet" href="assets/markdeck/css/markdeck.revealjs.css" />
+    <link rel="stylesheet" href="assets/css/slides.css" />
+
+    <script>
+        window.pdf_render = window.location.search.match(/render=pdf/gi) != null;
+        if (window.pdf_render) {
+            document.write('<link rel="stylesheet" href="assets/css/render-pdf.css" type="text/css">');
+        }
+    </script>
+
+    <link href="assets/css/rerendering.css" rel="stylesheet"></link>
+
+
+</head>
+<body>
+
+
+    <div class="rerendering-message"><h1>R E R E N D E R I N G</h1></div>
+    <div class="markdeck-logo"><a href="https://github.com/arnehilmann/markdeck">powered by markdeck</a></div>
+
+    <div class="reveal">
+        <div class="slides">
+
+<section id="kennen-lernen" class="level1">
+<h1>Kennen lernen</h1>
+<ul>
+<li>Vorstellen des Dozenten</li>
+<li>Vorstellen der Teilnehmer</li>
+<li>Erfahrung mit OpenShift, Origin, OKD</li>
+<li>Erwartungen an den Kurs</li>
+<li>Themen über die man gerne Sprechen möchte</li>
+</ul>
+</section>
+<section id="übersicht-themen-und-ablauf" class="level1">
+<h1>Übersicht Themen und Ablauf</h1>
+<ul>
+<li>Themen</li>
+<li>Zeitlicher Ablauf</li>
+</ul>
+</section>
+<section id="einführung-in-die-konzepte-von-openshift" class="level1">
+<h1>Einführung in die Konzepte von OpenShift</h1>
+<ul>
+<li>Vergleich zu kubernetes</li>
+<li>Architektur</li>
+<li><p>TLS Node Erkennung</p></li>
+<li>Deployments &amp; Deployment Configs</li>
+<li>Services</li>
+<li><p>Routes</p></li>
+<li>Persistent Volumes</li>
+<li><p>Persistent Volume Claims</p></li>
+</ul>
+</section>
+<section id="konzeption-installation-eines-openshift-cluster" class="level1">
+<h1>Konzeption &amp; Installation eines OpenShift-Cluster</h1>
+<ul>
+<li>Sizing</li>
+<li>DNS Einträge</li>
+<li>Welche Playbooks gibt es</li>
+<li>Wo findet man uninstall und update</li>
+<li><p>Wie kann man einzelne Rollen ausführen</p></li>
+<li><p>Vorsicht mit Metriken / Logging &amp; Block Storage</p></li>
+</ul>
+</section>
+<section id="ldap-anbindung-user-management" class="level1">
+<h1>LDAP Anbindung &amp; User Management</h1>
+<ul>
+<li>LDAP Anbinding</li>
+<li>Identity Provider</li>
+<li>Htpasswd</li>
+<li>Deny All</li>
+<li>Allow All</li>
+<li>Diversere Social Logins</li>
+<li>Generic OpenID Connect</li>
+<li>LDAP</li>
+<li>Keystone (OpenStack Identity Provider)</li>
+</ul>
+</section>
+<section id="cluster-updates-scale-up" class="level1">
+<h1>Cluster Updates &amp; Scale Up</h1>
+<ul>
+<li>Cluster Updates mit Node evakuieren</li>
+<li>System Updates</li>
+<li>Docker Updates</li>
+<li>Node ScaleUp</li>
+<li>Master ScaleUp (Vorsicht nur ungrade Zahlen)</li>
+</ul>
+</section>
+<section id="persistent-storage-mit-container-native-storage" class="level1">
+<h1>Persistent Storage mit Container Native Storage</h1>
+<ul>
+<li>GlusterFS</li>
+<li>Container Native Storage</li>
+<li>Heketi</li>
+<li>NFS ist deprecated</li>
+<li>iSCSI</li>
+</ul>
+</section>
+<section id="backup-restore-konzepte" class="level1">
+<h1>Backup &amp; Restore Konzepte</h1>
+<ul>
+<li>Klasische snapshots</li>
+<li>etcd Backup</li>
+<li>Export der Cluster und Projekt Objekte</li>
+</ul>
+</section>
+<section id="externe-image-registry" class="level1">
+<h1>Externe Image Registry</h1>
+<ul>
+<li>Auslagern des Registry PV nach</li>
+<li>Beispiel mit Nexus</li>
+</ul>
+</section>
+<section id="security-concepts" class="level1">
+<h1>Security Concepts</h1>
+<ul>
+<li>SELinux</li>
+<li>Non root container per default</li>
+<li>Block arbitrary images (kein docker hub)</li>
+<li>scanning nach sicherheitslücken</li>
+</ul>
+</section>
+<section id="high-availability-failover" class="level1">
+<h1>High Availability &amp; Failover</h1>
+<ul>
+<li>Hochverfügbarkeit des Cluster</li>
+<li>Hochverfügbarkeit von Applikationen</li>
+<li>Flaschenhälse</li>
+<li>Auto Scaling</li>
+</ul>
+</section>
+<section id="best-practices" class="level1">
+<h1>Best Practices</h1>
+<ul>
+<li>Keine prod. Datenbank betreiben</li>
+<li>Infrastruktur as Code</li>
+</ul>
+</section>
+
+        </div>
+    </div>
+
+    <script src="assets/3rdparty/jquery.js"></script>
+
+    <script src="assets/3rdparty/reveal.js/lib/js/head.min.js"></script>
+    <script src="assets/3rdparty/reveal.js/js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: '',
+            controlsTutorial: '',
+            controlsLayout: 'bottom-right',
+            controlsBackArrows: 'faded',
+            progress: 'true',
+            defaultTiming: '120',
+            slideNumber: 'true',
+            history: 'true',
+            keyboard: 'true',
+            overview: 'true',
+            center: 'true',
+            touch: 'true',
+            loop: '',
+            rtl: '',
+            shuffle: '',
+            fragments: 'true',
+            embedded: '',
+            help: 'true',
+            showNotes: '',
+            autoPlayMedia: 'null',
+
+            autoSlide: (window.pdf_render) ? 0 : 0,
+
+            autoSlideStoppable: 'true',
+            autoSlideMethod: 'Reveal.navigateNext',
+            mouseWheel: '',
+            hideAddressBar: 'true',
+            previewLinks: '',
+            transition: 'slide',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+
+            theme: 'simple',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'assets/3rdparty/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'assets/markdeck/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'assets/3rdparty/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                { src: 'assets/3rdparty/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+            ]
+        });
+    </script>
+
+    
+    <script src="assets/markdeck/revealjs-helper.js"></script>
+    <script>
+        flushleft(".slides .flushleft");
+    </script>
+
+
+</body>
+</html>
