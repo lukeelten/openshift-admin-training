@@ -1,30 +1,27 @@
 
 resource "aws_lb" "master-lb" {
   depends_on      = ["aws_internet_gateway.igw"]
-  name = "${var.ProjectId}-master-lb"
+  name = "training-${var.Training}-master-lb"
   load_balancer_type = "network"
 
   subnets = ["${aws_subnet.subnets-public.*.id}"]
 
   tags {
-    Name = "${var.ProjectName} - Master Load Balancer"
-    Project = "${var.ProjectName}"
     Type = "master"
-    ProjectId = "${var.ProjectId}"
-    "kubernetes.io/cluster/openshift" = "${var.ClusterId}"
+    Name = "Training ${var.Training} - Public Master LB"
+    Training = "${var.Training}"
   }
 }
 
 resource "aws_lb_target_group" "master-lb-tg1" {
-  name     = "${var.ProjectId}-master-lb-tg1"
+  name     = "training-${var.Training}-master-lb-tg1"
   port     = 8443
   protocol = "TCP"
   vpc_id   = "${aws_vpc.vpc.id}"
 
   tags {
-    Name = "${var.ProjectName} - Traffic to Master Nodes"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Public Master Traffic"
+    Training = "${var.Training}"
   }
 
   health_check {

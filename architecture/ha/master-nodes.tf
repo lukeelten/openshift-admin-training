@@ -1,14 +1,13 @@
 resource "aws_instance" "master-node" {
-  depends_on      = ["aws_nat_gateway.private-nat", "aws_route.private_route"]
+  depends_on      = ["aws_nat_gateway.private-nat", "aws_route.private_route_to_nat"]
 
   ami             = "${data.aws_ami.centos.id}"
   instance_type   = "${var.Types["Master"]}"
-  key_name        = "${aws_key_pair.public-key.key_name}"
+  key_name        = "heinlein-traning-${var.Training}"
   user_data       = "${file("assets/init.sh")}"
 
   vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}", "${aws_security_group.master-sg.id}", "${aws_security_group.etcd-sg.id}"]
   subnet_id = "${aws_subnet.subnets-private.*.id[(count.index % aws_subnet.subnets-private.count)]}"
-  iam_instance_profile = "${aws_iam_instance_profile.master-profile.name}"
 
   count = "${var.Counts["Master"]}"
 
@@ -23,10 +22,8 @@ resource "aws_instance" "master-node" {
 
   tags {
     Type = "master"
-    Name = "${var.ProjectName} - Master Node ${count.index + 1}"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
-    "kubernetes.io/cluster/openshift" = "${var.ClusterId}"
+    Name = "Training ${var.Training} - Master Node ${count.index + 1}"
+    Training = "${var.Training}"
   }
 }
 

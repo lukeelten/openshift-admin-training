@@ -1,11 +1,9 @@
-
-
 resource "aws_instance" "bastion" {
   depends_on             = ["aws_internet_gateway.igw"]
 
   ami                    = "${data.aws_ami.centos.id}"
   instance_type          = "${var.Types["Bastion"]}"
-  key_name               = "${aws_key_pair.public-key.key_name}"
+  key_name        = "heinlein-traning-${var.Training}"
 
   subnet_id              = "${aws_subnet.subnets-public.*.id[0]}"
 
@@ -18,9 +16,8 @@ resource "aws_instance" "bastion" {
   }
 
   tags {
-    Name = "${var.ProjectName} - Bastion"
-    Project = "${var.ProjectName}"
     Type = "bastion"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Bastion"
+    Training = "${var.Training}"
   }
 }

@@ -8,10 +8,8 @@ resource "aws_subnet" "subnets-public" {
   map_public_ip_on_launch = true
 
   tags {
-    Name = "${var.ProjectName} - Public Subnet ${count.index + 1}"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
-    "kubernetes.io/cluster/openshift" = "${var.ClusterId}"
+    Name = "Training ${var.Training} - Public Subnet ${count.index + 1}"
+    Training = "${var.Training}"
   }
 }
 
@@ -32,10 +30,8 @@ resource "aws_subnet" "subnets-private" {
   map_public_ip_on_launch = false
 
   tags {
-    Name = "${var.ProjectName} - Private Subnet ${count.index}"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
-    "kubernetes.io/cluster/openshift" = "${var.ClusterId}"
+    Name = "Training ${var.Training} - Private Subnet ${count.index}"
+    Training = "${var.Training}"
   }
 }
 

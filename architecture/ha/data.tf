@@ -1,7 +1,6 @@
 
 data "aws_availability_zones" "frankfurt" {}
 
-
 data "aws_ami" "centos" {
   most_recent = true
 
@@ -21,12 +20,4 @@ data "aws_ami" "centos" {
 data "aws_route53_zone" "existing-zone" {
   name = "${var.Zone}"
   private_zone = false
-}
-
-output "ami-id" {
-  value = "${data.aws_ami.centos.id}"
-}
-
-output "ami-name" {
-  value = "${data.aws_ami.centos.name}"
 }

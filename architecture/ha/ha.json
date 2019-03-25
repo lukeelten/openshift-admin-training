@@ -1,7 +1,4 @@
 {
-  "ProjectName":"Test Project",
-  "ProjectId":"test-project",
-  "PublicKey":"ssh-rsa AAAA...",
   "Zone":"cc-openshift.de",
   "Counts":{
     "Master":3,
@@ -13,5 +10,6 @@
     "Master":"m5a.xlarge",
     "Infra":"m5a.large",
     "App":"m5a.large"
-  }
+  },
+  "Training": 1
 }

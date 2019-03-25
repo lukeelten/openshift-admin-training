@@ -1,17 +1,15 @@
 
 resource "aws_lb" "router-lb" {
   depends_on      = ["aws_internet_gateway.igw"]
-  name = "${var.ProjectId}-router-lb"
+  name = "training-${var.Training}-router-lb"
   load_balancer_type = "network"
 
   subnets = ["${aws_subnet.subnets-public.*.id}"]
 
   tags {
-    Name = "${var.ProjectName} - Router Load Balancer"
-    Project = "${var.ProjectId}"
     Type = "infra"
-    ProjectId = "${var.ProjectId}"
-    "kubernetes.io/cluster/openshift" = "${var.ClusterId}"
+    Name = "Training ${var.Training} - Router Load Balancer"
+    Training = "${var.Training}"
   }
 }
 
@@ -38,15 +36,14 @@ resource "aws_lb_listener" "router-lb-listener2" {
 }
 
 resource "aws_lb_target_group" "router-lb-tg1" {
-  name     = "${var.ProjectId}-router-lb-tg1"
+  name     = "training-${var.Training}-router-lb-tg1"
   port     = 80
   protocol = "TCP"
   vpc_id   = "${aws_vpc.vpc.id}"
 
   tags {
-    Name = "${var.ProjectName} - HTTP Routing Traffic"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Traffic Routing HTTP"
+    Training = "${var.Training}"
   }
 
   health_check {
@@ -61,15 +58,14 @@ resource "aws_lb_target_group" "router-lb-tg1" {
 }
 
 resource "aws_lb_target_group" "router-lb-tg2" {
-  name     = "${var.ProjectId}-router-lb-tg2"
+  name     = "training-${var.Training}-router-lb-tg2"
   port     = 443
   protocol = "TCP"
   vpc_id   = "${aws_vpc.vpc.id}"
 
   tags {
-    Name = "${var.ProjectName} - HTTPS Routing Traffic"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Traffic Routing HTTPS"
+    Training = "${var.Training}"
   }
 
   health_check {
