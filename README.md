@@ -52,6 +52,10 @@
 - LDAP
 - Keystone (OpenStack Identity Provider)
 
+https://docs.okd.io/3.11/architecture/additional_concepts/authorization.html#architecture-additional-concepts-authorization
+https://docs.okd.io/3.11/architecture/additional_concepts/authorization.html#roles
+
+
 
 ## Cluster Updates & Scale Up
 - Cluster Updates mit Node evakuieren
@@ -80,6 +84,7 @@
 - SELinux
 - Non root container per default
 - Block arbitrary images (kein docker hub)
+- ---> https://docs.okd.io/3.11/admin_guide/image_policy.html
 - scanning nach sicherheitslücken
 
 

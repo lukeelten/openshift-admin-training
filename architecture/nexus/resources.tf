@@ -123,7 +123,7 @@ resource "aws_instance" "nexus" {
 
   ami             = "${data.aws_ami.centos.id}"
   instance_type   = "m5a.large"
-  key_name        = "heinlein-training-99"
+  key_name        = "heinlein-training-0"
   user_data       = "${file("init.sh")}"
 
   vpc_security_group_ids = ["${aws_security_group.nexus-sg.id}"]
