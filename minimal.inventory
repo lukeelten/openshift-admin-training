@@ -27,11 +27,11 @@ osm_use_cockpit=true
 openshift_release='v3.11' 
 
 # apps subdomain definition
-openshift_master_default_subdomain='apps.cc-openshift.de'
+openshift_master_default_subdomain='apps.training0.cc-openshift.de'
 
 # cluster masters domain definition
-openshift_master_cluster_hostname='master.cc-openshift.de'
-openshift_master_cluster_public_hostname='master.cc-openshift.de'
+openshift_master_cluster_hostname='master.training0.cc-openshift.de'
+openshift_master_cluster_public_hostname='master.training0.cc-openshift.de'
 
 
 
@@ -48,12 +48,12 @@ openshift_master_htpasswd_users={'admin': '$apr1$zgSjCrLt$1KSuj66CggeWSv.D.BXOA1
 openshift_disable_check=docker_storage,memory_availability
 
 [masters]
-master.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
+master.training0.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
 
 [etcd]
-master.cc-openshift.de
+master.training0.cc-openshift.de
 
 [nodes]
-master.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
-app0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
-app1.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
+master.training0.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
+app0.training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
+app1.training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
