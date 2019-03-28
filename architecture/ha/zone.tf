@@ -5,9 +5,9 @@ resource "aws_route53_record" "router-record" {
   type = "A"
 
   alias {
-    name = "${aws_lb.router-lb.dns_name}"
+    name = "${aws_lb.external-lb.dns_name}"
     evaluate_target_health = false
-    zone_id = "${aws_lb.router-lb.zone_id}"
+    zone_id = "${aws_lb.external-lb.zone_id}"
   }
 }
 
@@ -17,9 +17,9 @@ resource "aws_route53_record" "master-record" {
   type = "A"
 
   alias {
-    name = "${aws_lb.master-lb.dns_name}"
+    name = "${aws_lb.external-lb.dns_name}"
     evaluate_target_health = false
-    zone_id = "${aws_lb.master-lb.zone_id}"
+    zone_id = "${aws_lb.external-lb.zone_id}"
   }
 }
 

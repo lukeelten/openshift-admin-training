@@ -1,5 +1,4 @@
 {
-  "Zone":"cc-openshift.de",
   "Counts":{
     "Master":3,
     "Infra":3,
@@ -10,6 +9,5 @@
     "Master":"m5a.xlarge",
     "Infra":"m5a.large",
     "App":"m5a.large"
-  },
-  "Training": 1
+  }
 }

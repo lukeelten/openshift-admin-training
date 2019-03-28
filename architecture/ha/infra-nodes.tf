@@ -26,19 +26,19 @@ resource "aws_instance" "infra-node" {
   }
 }
 
-resource "aws_lb_target_group_attachment" "infra-node-tg1" {
-  target_group_arn = "${aws_lb_target_group.router-lb-tg1.arn}"
+resource "aws_lb_target_group_attachment" "infra-lb-http" {
+  target_group_arn = "${aws_lb_target_group.external-tg-http.arn}"
   target_id        = "${aws_instance.infra-node.*.id[count.index]}"
-  port             = "${aws_lb_target_group.router-lb-tg1.port}"
+  port             = "${aws_lb_target_group.external-tg-http.port}"
 
   count = "${var.Counts["Infra"]}"
 }
 
 
-resource "aws_lb_target_group_attachment" "infra-node-tg2" {
-  target_group_arn = "${aws_lb_target_group.router-lb-tg2.arn}"
+resource "aws_lb_target_group_attachment" "infra-lb-https" {
+  target_group_arn = "${aws_lb_target_group.external-tg-https.arn}"
   target_id        = "${aws_instance.infra-node.*.id[count.index]}"
-  port             = "${aws_lb_target_group.router-lb-tg2.port}"
+  port             = "${aws_lb_target_group.external-tg-https.port}"
 
   count = "${var.Counts["Infra"]}"
 }
