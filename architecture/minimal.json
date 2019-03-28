@@ -2,7 +2,7 @@
  "Zone":"cc-openshift.de",
   "Counts":{
     "Master": 1,
-    "App":2
+    "App": 2
   },
   "Types":{
     "Bastion":"t3.medium",

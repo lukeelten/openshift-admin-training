@@ -98,4 +98,4 @@ https://docs.okd.io/3.11/architecture/additional_concepts/authorization.html#rol
 ## Best Practices
 - Keine prod. Datenbank betreiben
 - Infrastruktur as Code
-- 
+- Audit Logs

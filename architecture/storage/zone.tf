@@ -1,49 +1,38 @@
 
 resource "aws_route53_record" "router-record" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "*.apps.${var.Zone}"
-  type = "A"
+  name    = "*.apps.training${var.Training}.${var.Zone}"
+  type = "CNAME"
 
-  alias {
-    name = "${aws_lb.router-lb.dns_name}"
-    evaluate_target_health = false
-    zone_id = "${aws_lb.router-lb.zone_id}"
-  }
+  ttl = "300"
+  records = ["${aws_instance.master-node.public_dns}"]
 }
 
 resource "aws_route53_record" "master-record" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "master.${data.aws_route53_zone.existing-zone.name}"
-  type = "A"
+  name    = "master.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
+  type = "CNAME"
 
-  alias {
-    name = "${aws_lb.master-lb.dns_name}"
-    evaluate_target_health = false
-    zone_id = "${aws_lb.master-lb.zone_id}"
-  }
+  ttl = "300"
+  records = ["${aws_instance.master-node.public_dns}"]
 }
 
-resource "aws_route53_record" "internal-api-record" {
+resource "aws_route53_record" "bastion-record" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "internal-api.${data.aws_route53_zone.existing-zone.name}"
-  type = "A"
+  name    = "bastion.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
+  type = "CNAME"
 
-  count = "${aws_lb.internal-lb.count}"
-
-  alias {
-    name = "${aws_lb.internal-lb.dns_name}"
-    evaluate_target_health = false
-    zone_id = "${aws_lb.internal-lb.zone_id}"
-  }
+  ttl = "300"
+  records = ["${aws_instance.bastion.public_dns}"]
 }
 
-resource "aws_route53_record" "internal-api-record-single-master" {
+resource "aws_route53_record" "app-records" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "internal-api.${data.aws_route53_zone.existing-zone.name}"
-  type = "A"
+  name    = "app${count.index}.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
+  type = "CNAME"
 
-  ttl = 300
+  count = "${var.Counts["App"]}"
 
-  count = "${aws_lb.internal-lb.count > 0 ? 0 : 1}"
-  records = ["${aws_instance.master-node.*.private_ip}"]
+  ttl = "300"
+  records = ["${aws_instance.app-node.*.public_dns[count.index]}"]
 }

@@ -1,13 +1,10 @@
 resource "aws_vpc" "vpc" {
-  cidr_block                       = "10.10.0.0/16"
+  cidr_block                       = "10.${var.Training}.0.0/16"
   enable_dns_hostnames             = true
-#  assign_generated_ipv6_cidr_block = true
 
   tags {
-    Name = "${var.ProjectName} - VPC"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
-    "kubernetes.io/cluster/openshift" = "${var.ClusterId}"
+    Name = "Training ${var.Training} - VPC"
+    Training = "${var.Training}"
   }
 }
 
@@ -15,10 +12,8 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = "${aws_vpc.vpc.id}"
 
   tags {
-    Name = "${var.ProjectName} - Internet Gateway"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
-    "kubernetes.io/cluster/openshift" = "${var.ClusterId}"
+    Name = "Training ${var.Training} - Internet Gateway"
+    Training = "${var.Training}"
   }
 }
 
@@ -31,14 +26,7 @@ resource "aws_route_table" "public-rt" {
   }
 
   tags {
-    Name = "${var.ProjectName} - Public Route Table"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
-    "kubernetes.io/cluster/openshift" = "${var.ClusterId}"
+    Name = "Training ${var.Training} - Public Route Table"
+    Training = "${var.Training}"
   }
-}
-
-resource "aws_key_pair" "public-key" {
-  key_name   = "${var.ProjectId}-key"
-  public_key = "${var.PublicKey}"
 }

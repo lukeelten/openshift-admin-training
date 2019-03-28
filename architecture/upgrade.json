@@ -1,15 +1,13 @@
 {
-  "ProjectName":"Test Project",
-  "ProjectId":"test-project",
-  "PublicKey":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC+yguR8RsjhVDACVpDPuMq+tWsW4b27uHIZsOcl6uQxfQDPM53+OArvKX+LkCWY5P+j+vxeSoRWbTy+MCvNiSDahCWyIf9adnvH1Xts7Cyfve5n/34M5NEgIOP6afaySzH9ag1MKXxm1sspvxpdbz3+VkNEDa0eLwqwzkuazTRMPI44s9lvU3UHLaS9hs2O2Ij0WQZk9Vs79OejHmOID54H39aR2hd4TA1WA48rgxd1Rf+e38wps3avm8eWquJrs81DzsZRY5y9m3Xpo6Czm5UOGowPnzxPfJtKyyl97/W+MS5Jfz96qWDCNqgXh1mDNp5u4J4zEUx6PeEakqaa9EbqqbvDfqHaa34BFXZLtG+KfonNnjolRCxMubJwM+9M2qHkVCEX0gqb+zzYQJrgMYD1zzcFGhBwCuebOWLuVno89QQap25QC27z0jHbHO5nCkZ3uRBwSIGpVFYX/BDDYKkZ923yHkad8QfAhVlGhL04crwBxiU+UYqTEXgE+qeSnr8wrpvCUWFf/LfOqg8zVkEnP01GgtKjdyWM5XNb4YdVxkJe6LsCvxQCZo9tJ+mIAbU++oesC5l/k3e0ZnMTCEtlkeaVqiv0t6+rGFtkkIqi5eB1J79WrQistSnM6oN9RpLm9cLwgCY+95ne3kDzNd78D+HyeaHFUXVcOFZcGeMTQ== lukeelten@tobiasCodecentric",
-  "Zone":"cc-openshift.de",
   "Counts":{
-    "Master": 1,
-    "App":2
+    "Master":3,
+    "Infra":2,
+    "App":3
   },
   "Types":{
-    "Bastion":"m5a.large",
+    "Bastion":"t3.medium",
     "Master":"m5a.xlarge",
+    "Infra":"m5a.large",
     "App":"m5a.large"
   }
 }

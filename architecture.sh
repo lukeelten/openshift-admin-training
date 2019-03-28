@@ -37,7 +37,8 @@ ACTION_NAME="Build"
 if [[ ${COUNT} -eq 0 ]]; then
     ACTION="destroy"
     ACTION_NAME="Cleanup"
-    COUNT=$(find "${STATE_PATH}" -type f | grep "tfstate$" | sort | uniq | tail -1 | sed -r 's/.*\/state-([[:digit:]])\.tfstate$/\1/')
+
+    COUNT=$(find "${STATE_PATH}" -type f | grep "tfstate$" | sed -r 's/.*\/state-([[:digit:]]+)\.tfstate$/\1/' | sort --general-numeric-sort | uniq | tail -1)
     if [[ ! -f "${STATE_PATH}/state-${COUNT}.tfstate" ]]; then
         echo "Cannot correctly determine count. Calculated: ${COUNT}" > /dev/stderr
         exit 5
@@ -50,7 +51,7 @@ terraform init -input=false > /dev/null
 echo
 echo "${ACTION_NAME} ${COUNT} architectures of type ${ARCH}"
 
-for i in $(seq 0 "${COUNT}"); do
+for i in $(seq 1 "${COUNT}"); do
     echo "${ACTION_NAME} architecture ${i}"
     terraform ${ACTION} -var-file="${CONF}" -var "Training=${i}" -state="${STATE_PATH}/state-${i}.tfstate" -input=false -auto-approve > /dev/null
 done

@@ -2,6 +2,7 @@
 masters
 nodes
 etcd
+glusterfs
 
 [OSEv3:vars]
 ansible_user=centos
@@ -33,6 +34,21 @@ openshift_master_htpasswd_users={'admin': '$apr1$zgSjCrLt$1KSuj66CggeWSv.D.BXOA1
 
 openshift_disable_check=docker_storage,memory_availability
 
+# Storage config
+openshift_storage_glusterfs_namespace=openshift-storage
+openshift_storage_glusterfs_storageclass=true
+openshift_storage_glusterfs_storageclass_default=true
+openshift_storage_glusterfs_block_deploy=true
+openshift_storage_glusterfs_block_host_vol_size=10
+openshift_storage_glusterfs_block_storageclass=true
+openshift_storage_glusterfs_block_storageclass_default=false
+openshift_storage_glusterfs_is_native=true
+
+[glusterfs]
+app0.training0.cc-openshift.de glusterfs_devices='[ "/dev/xvdc", "/dev/xvdd" ]'
+app1.training0.cc-openshift.de glusterfs_devices='[ "/dev/xvdc", "/dev/xvdd" ]'
+app2.training0.cc-openshift.de glusterfs_devices='[ "/dev/xvdc", "/dev/xvdd" ]'
+
 [masters]
 master.training0.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
 
@@ -43,3 +59,4 @@ master.training0.cc-openshift.de
 master.training0.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
 app0.training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
 app1.training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
+app2.training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true

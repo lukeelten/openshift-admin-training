@@ -1,6 +1,6 @@
 resource "aws_security_group" "bastion-sg" {
-  description = "${var.ProjectName} Security Group for Bastion server"
-  name        = "${var.ProjectId}-bastion-sg"
+  description = "Training ${var.Training} Security Group for Bastion server"
+  name        = "training-${var.Training}-bastion-sg"
   vpc_id      = "${aws_vpc.vpc.id}"
 
   ingress = [
@@ -26,43 +26,14 @@ resource "aws_security_group" "bastion-sg" {
   }
 
   tags {
-    Name = "${var.ProjectName} - Bastion SG"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
-  }
-}
-
-resource "aws_security_group" "internal-lb-sg" {
-  description = "${var.ProjectName} Security Group for Internal Master Load Balancer"
-  name        = "${var.ProjectId}-internal-lb-sg"
-  vpc_id      = "${aws_vpc.vpc.id}"
-
-  ingress = [
-    {
-      from_port        = 8443
-      to_port          = 8443
-      protocol         = "tcp"
-      security_groups  = ["${aws_security_group.nodes-sg.id}"]
-    }
-  ]
-
-  egress {
-    from_port        = 8443
-    to_port          = 8443
-    protocol         = "tcp"
-    security_groups  = ["${aws_security_group.nodes-sg.id}"]
-  }
-
-  tags {
-    Name = "${var.ProjectName} - Internal Load Balancer SG"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Bastion SG"
+    Training = "${var.Training}"
   }
 }
 
 resource "aws_security_group" "master-sg" {
-  description = "${var.ProjectName} Security Group for Master Nodes"
-  name        = "${var.ProjectId}-master-sg"
+  description = "Training ${var.Training} Security Group for Master Nodes"
+  name        = "training-${var.Training}-master-sg"
   vpc_id      = "${aws_vpc.vpc.id}"
 
   ingress = [
@@ -84,20 +55,6 @@ resource "aws_security_group" "master-sg" {
       protocol         = "tcp"
       // Should be restricted to master load balancer, but network lbs does not have security groups
       cidr_blocks      = ["0.0.0.0/0"]
-    },
-    {
-      // Seems useless, but is for future use
-      from_port        = 8443
-      to_port          = 8443
-      protocol         = "tcp"
-      security_groups  = ["${aws_security_group.internal-lb-sg.id}", "${aws_security_group.nodes-sg.id}"]
-    },
-    {
-      // Seems useless, but is for future use
-      from_port        = 8444
-      to_port          = 8444
-      protocol         = "tcp"
-      security_groups  = ["${aws_security_group.internal-lb-sg.id}", "${aws_security_group.nodes-sg.id}"]
     }
   ]
 
@@ -109,15 +66,14 @@ resource "aws_security_group" "master-sg" {
   }
 
   tags {
-    Name = "${var.ProjectName} - Master Nodes SG"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Master Nodes SG"
+    Training = "${var.Training}"
   }
 }
 
 resource "aws_security_group" "etcd-sg" {
-  description = "${var.ProjectName} Security Group for ETCD"
-  name        = "${var.ProjectId}-etcd-sg"
+  description = "Training ${var.Training} Security Group for ETCD"
+  name        = "training-${var.Training}-etcd-sg"
   vpc_id      = "${aws_vpc.vpc.id}"
 
   ingress = [
@@ -143,15 +99,14 @@ resource "aws_security_group" "etcd-sg" {
   }
 
   tags {
-    Name = "${var.ProjectName} - ETCD SG"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - ETCD SG"
+    Training = "${var.Training}"
   }
 }
 
 resource "aws_security_group" "infra-sg" {
-  description = "${var.ProjectName} Security Group for Infrastructure Nodes"
-  name        = "${var.ProjectId}-infra-sg"
+  description = "Training ${var.Training} Security Group for Infrastructure Nodes"
+  name        = "training-${var.Training}-infra-sg"
   vpc_id      = "${aws_vpc.vpc.id}"
 
   ingress = [
@@ -179,15 +134,14 @@ resource "aws_security_group" "infra-sg" {
   }
 
   tags {
-    Name = "${var.ProjectName} - Infrastructure Nodes SG"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Infrastructure Nodes SG"
+    Training = "${var.Training}"
   }
 }
 
 resource "aws_security_group" "nodes-sg" {
-  description = "${var.ProjectName} Security Group for Nodes"
-  name        = "${var.ProjectId}-nodes-sg"
+  description = "Training ${var.Training} Security Group for Nodes"
+  name        = "training-${var.Training}-nodes-sg"
   vpc_id      = "${aws_vpc.vpc.id}"
 
   ingress = [
@@ -228,13 +182,6 @@ resource "aws_security_group" "nodes-sg" {
       self             = true
     },
     {
-      // EFS
-      from_port        = 2049
-      to_port          = 2049
-      protocol         = "tcp"
-      security_groups  = ["${aws_security_group.storage-sg.id}"]
-    },
-    {
       // Elastic Search
       from_port        = 9300
       to_port          = 9300
@@ -272,43 +219,7 @@ resource "aws_security_group" "nodes-sg" {
   }
 
   tags {
-    Name = "${var.ProjectName} - Nodes SG"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
-    "kubernetes.io/cluster/openshift" = "${var.ClusterId}"
-  }
-}
-
-resource "aws_security_group" "storage-sg" {
-  description = "${var.ProjectName} Storage Security Group"
-  name        = "${var.ProjectId}-storage-sg"
-  vpc_id      = "${aws_vpc.vpc.id}"
-
-  ingress = [
-    {
-      from_port        = 2049
-      to_port          = 2049
-      protocol         = "tcp"
-      cidr_blocks      = ["${aws_vpc.vpc.cidr_block}"]
-    },
-    {
-      from_port        = 111
-      to_port          = 111
-      protocol         = "tcp"
-      cidr_blocks      = ["${aws_vpc.vpc.cidr_block}"]
-    },
-  ]
-
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["${aws_vpc.vpc.cidr_block}"]
-  }
-
-  tags {
-    Name = "${var.ProjectName} - Storage Security Group"
-    Project = "${var.ProjectName}"
-    ProjectId = "${var.ProjectId}"
+    Name = "Training ${var.Training} - Nodes SG"
+    Training = "${var.Training}"
   }
 }
