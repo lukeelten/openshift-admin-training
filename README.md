@@ -99,3 +99,7 @@ https://docs.okd.io/3.11/architecture/additional_concepts/authorization.html#rol
 - Keine prod. Datenbank betreiben
 - Infrastruktur as Code
 - Audit Logs
+
+```bash
+ssh -o "ForwardAgent=yes" centos@bastion.training0.cc-openshift.de
+```
