@@ -33,9 +33,9 @@ add_key() {
 provider
 
 HOST_KEY=$(cat "$HOME/.ssh/id_rsa.pub")
-add_key "99" "$HOST_KEY"
+add_key "0" "$HOST_KEY"
 
-for i in $(seq 0 $((NUM-1))); do
+for i in $(seq 1 $NUM); do
     FILENAME="training$i"
     echo "Generate key $i to file: '${FILENAME}'"
 
