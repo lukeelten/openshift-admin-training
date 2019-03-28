@@ -48,7 +48,7 @@ resource "aws_route53_record" "bastion-record" {
 
 resource "aws_route53_record" "app-records" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "app${count.index}.traning${var.Training}.${data.aws_route53_zone.existing-zone.name}"
+  name    = "app${count.index}.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
 
   count = "${var.Counts["App"]}"
@@ -59,7 +59,7 @@ resource "aws_route53_record" "app-records" {
 
 resource "aws_route53_record" "master-nodes-records" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "master${count.index}.traning${var.Training}.${data.aws_route53_zone.existing-zone.name}"
+  name    = "master${count.index}.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
 
   count = "${var.Counts["Master"]}"
@@ -70,7 +70,7 @@ resource "aws_route53_record" "master-nodes-records" {
 
 resource "aws_route53_record" "infra-nodes-records" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "infra${count.index}.traning${var.Training}.${data.aws_route53_zone.existing-zone.name}"
+  name    = "infra${count.index}.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
 
   count = "${var.Counts["Infra"]}"

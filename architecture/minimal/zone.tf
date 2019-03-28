@@ -28,7 +28,7 @@ resource "aws_route53_record" "bastion-record" {
 
 resource "aws_route53_record" "app-records" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "app${count.index}.traning${var.Training}.${data.aws_route53_zone.existing-zone.name}"
+  name    = "app${count.index}.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
 
   count = "${var.Counts["App"]}"

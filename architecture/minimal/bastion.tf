@@ -3,7 +3,7 @@ resource "aws_instance" "bastion" {
 
   ami                    = "${data.aws_ami.centos.id}"
   instance_type          = "${var.Types["Bastion"]}"
-  key_name        = "heinlein-traning-${var.Training}"
+  key_name        = "heinlein-training-${var.Training}"
 
   subnet_id              = "${aws_subnet.subnets-public.*.id[0]}"
 

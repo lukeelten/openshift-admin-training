@@ -3,7 +3,7 @@ resource "aws_instance" "master-node" {
   
   ami             = "${data.aws_ami.centos.id}"
   instance_type   = "${var.Types["Master"]}"
-  key_name        = "heinlein-traning-${var.Training}"
+  key_name        = "heinlein-training-${var.Training}"
   user_data       = "${file("assets/init.sh")}"
 
   vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}", "${aws_security_group.master-sg.id}", "${aws_security_group.etcd-sg.id}", "${aws_security_group.infra-sg.id}"]
