@@ -27,10 +27,10 @@ if [[ ${COUNT} -lt 0 || ${COUNT} -gt 99 ]]; then
     exit 3
 fi
 
+cd "${ARCH_DIR}"
+
 STATE_PATH="states"
 mkdir -p "${STATE_PATH}"
-
-cd "${ARCH_DIR}"
 
 ACTION="apply"
 ACTION_NAME="Build"

@@ -2,7 +2,7 @@
 
 yum -y update
 yum -y install epel-release NetworkManager
-yum -y install docker haveged nano git
+yum -y install docker haveged nano git bind-utils traceroute
 systemctl enable docker haveged NetworkManager
 systemctl start docker haveged NetworkManager
 

@@ -1,5 +1,5 @@
 resource "aws_instance" "app-node" {
-  depends_on      = ["aws_internet_gateway.igw"]
+  depends_on      = ["aws_internet_gateway.igw", "aws_nat_gateway.private-nat", "aws_route.private_route_to_nat"]
 
   ami             = "${data.aws_ami.centos.id}"
   instance_type   = "${var.Types["App"]}"
@@ -7,27 +7,13 @@ resource "aws_instance" "app-node" {
   user_data       = "${file("assets/init.sh")}"
 
   vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}"]
-  subnet_id = "${aws_subnet.subnets-public.*.id[(count.index % aws_subnet.subnets-public.count)]}"
+  subnet_id = "${aws_subnet.subnets-private.*.id[(count.index % aws_subnet.subnets-private.count)]}"
 
   count = "${var.Counts["App"]}"
 
   root_block_device {
     volume_type = "gp2"
     volume_size = 40
-  }
-
-  ebs_block_device {
-    delete_on_termination = true
-    volume_type ="gp2"
-    volume_size = 100
-    device_name = "/dev/sdb"
-  }
-
-  ebs_block_device {
-    delete_on_termination = true
-    volume_type ="gp2"
-    volume_size = 100
-    device_name = "/dev/sdc"
   }
 
   lifecycle {
