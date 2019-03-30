@@ -1,0 +1,13 @@
+ansible -i inventory masters -a 'oc adm policy add-cluster-role-to-user cluster-admin admin'
+
+ansible -i inventory nodes -a 'yum -y install glusterfs glusterfs-client-xlators glusterfs-libs glusterfs-fuse'
+
+git checkout openshift-ansible-3.11.99-1 && sudo pip install -r requirements.txt
+
+
+
+ansible -i inventory nodes -a 'setsebool -P virt_sandbox_use_fusefs on'; 
+ansible -i inventory nodes -a 'setsebool -P virt_use_fusefs on';
+ansible -i inventory nodes -a 'yum -y install centos-release-gluster41';
+ansible -i inventory nodes -a 'yum -y install glusterfs glusterfs-client-xlators glusterfs-libs glusterfs-fuse';
+

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# terraform apply -var-file="../storage.json" -var 'Training=1' -state="states/state-1.tfstate"
+#
+
 set -e
 set -o pipefail
 
