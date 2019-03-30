@@ -6,7 +6,7 @@ resource "aws_instance" "master-node" {
   key_name        = "heinlein-training-${var.Training}"
   user_data       = "${file("assets/init.sh")}"
 
-  vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}", "${aws_security_group.master-sg.id}", "${aws_security_group.etcd-sg.id}"]
+  vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}", "${aws_security_group.master-sg.id}"]
   subnet_id = "${aws_subnet.subnets-private.*.id[(count.index % aws_subnet.subnets-private.count)]}"
 
   count = "${var.Counts["Master"]}"
