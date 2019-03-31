@@ -8,7 +8,7 @@ resource "aws_route53_record" "router-record" {
   records = ["${aws_instance.master-node.public_ip}"]
 }
 
-resource "aws_route53_record" "master-record" {
+resource "aws_route53_record" "master-record1" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
   name    = "master0.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
@@ -17,7 +17,7 @@ resource "aws_route53_record" "master-record" {
   records = ["${aws_instance.master-node.public_dns}"]
 }
 
-resource "aws_route53_record" "master-record" {
+resource "aws_route53_record" "master-record2" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
   name    = "master.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
