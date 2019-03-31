@@ -10,11 +10,29 @@ resource "aws_route53_record" "router-record" {
 
 resource "aws_route53_record" "master-record" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "master.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
-  type = "A"
+  name    = "master0.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
+  type = "CNAME"
 
   ttl = "300"
-  records = ["${aws_instance.master-node.public_ip}"]
+  records = ["${aws_instance.master-node.public_dns}"]
+}
+
+resource "aws_route53_record" "master-record" {
+  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  name    = "master.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
+  type = "CNAME"
+
+  ttl = "300"
+  records = ["${aws_instance.master-node.public_dns}"]
+}
+
+resource "aws_route53_record" "internal-api-record" {
+  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  name    = "internal-master.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
+  type = "CNAME"
+
+  ttl = "300"
+  records = ["${aws_instance.master-node.public_dns}"]
 }
 
 resource "aws_route53_record" "bastion-record" {

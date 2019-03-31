@@ -93,6 +93,30 @@ resource "aws_security_group" "nexus-sg" {
       cidr_blocks      = ["0.0.0.0/0"]
     },
     {
+      from_port        = 443
+      to_port          = 443
+      protocol         = "tcp"
+      cidr_blocks      = ["0.0.0.0/0"]
+    },
+    {
+      from_port        = 8080
+      to_port          = 8081
+      protocol         = "tcp"
+      cidr_blocks      = ["0.0.0.0/0"]
+    },
+    {
+      from_port        = 389
+      to_port          = 389
+      protocol         = "tcp"
+      cidr_blocks      = ["0.0.0.0/0"]
+    },
+    {
+      from_port        = 636
+      to_port          = 636
+      protocol         = "tcp"
+      cidr_blocks      = ["0.0.0.0/0"]
+    },
+    {
       from_port        = 5000
       to_port          = 5010
       protocol         = "tcp"
@@ -122,7 +146,7 @@ resource "aws_instance" "nexus" {
   depends_on      = ["aws_internet_gateway.igw"]
 
   ami             = "${data.aws_ami.centos.id}"
-  instance_type   = "m5a.large"
+  instance_type   = "m5a.xlarge"
   key_name        = "heinlein-training-0"
   user_data       = "${file("init.sh")}"
 
@@ -141,14 +165,33 @@ resource "aws_instance" "nexus" {
   tags {
     Name = "Nexus Example"
     Type = "nexus"
+    Training = "0"
   }
 }
 
 resource "aws_route53_record" "nexus-record" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
   name    = "nexus.${data.aws_route53_zone.existing-zone.name}"
-  type = "CNAME"
+  type = "A"
 
   ttl = "300"
-  records = ["${aws_instance.nexus.public_dns}"]
+  records = ["${aws_instance.nexus.public_ip}"]
+}
+
+resource "aws_route53_record" "ldap-record" {
+  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  name    = "ldap.${data.aws_route53_zone.existing-zone.name}"
+  type = "A"
+
+  ttl = "300"
+  records = ["${aws_instance.nexus.public_ip}"]
+}
+
+resource "aws_route53_record" "sso-record" {
+  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  name    = "sso.${data.aws_route53_zone.existing-zone.name}"
+  type = "A"
+
+  ttl = "300"
+  records = ["${aws_instance.nexus.public_ip}"]
 }
