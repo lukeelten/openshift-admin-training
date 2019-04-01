@@ -47,8 +47,6 @@ openshift_storage_glusterfs_storageclass_default=true
 openshift_storage_glusterfs_block_deploy=true
 openshift_storage_glusterfs_block_storageclass=true
 openshift_storage_glusterfs_block_storageclass_default=false
-#openshift_storage_glusterfs_image='docker.io/gluster/gluster-centos:gluster4u0_centos7'
-#openshift_storage_glusterfs_heketi_image='docker.io/heketi/heketi:7'
 
 [glusterfs]
 app0.training0.cc-openshift.de glusterfs_zone=1 glusterfs_devices='[ "/dev/nvme1n1", "/dev/nvme2n1" ]'

@@ -2,9 +2,9 @@
 
 yum -y update
 yum -y install epel-release NetworkManager
-yum -y install docker haveged nano git bind-utils traceroute
-systemctl enable docker haveged NetworkManager
-systemctl start docker haveged NetworkManager
+yum -y install docker rng-tools nano git bind-utils traceroute
+systemctl enable docker rngd NetworkManager
+systemctl start docker rngd NetworkManager
 
 curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
 chmod +x /usr/bin/docker-compose
