@@ -49,9 +49,9 @@ openshift_storage_glusterfs_block_storageclass=true
 openshift_storage_glusterfs_block_storageclass_default=false
 
 [glusterfs]
-app0.training0.cc-openshift.de glusterfs_zone=1 glusterfs_devices='[ "/dev/nvme1n1", "/dev/nvme2n1" ]'
-app1.training0.cc-openshift.de glusterfs_zone=2 glusterfs_devices='[ "/dev/nvme1n1", "/dev/nvme2n1" ]'
-app2.training0.cc-openshift.de glusterfs_zone=3 glusterfs_devices='[ "/dev/nvme1n1", "/dev/nvme2n1" ]'
+app0.training0.cc-openshift.de glusterfs_zone=0 glusterfs_devices='[ "/dev/nvme1n1", "/dev/nvme2n1" ]'
+app1.training0.cc-openshift.de glusterfs_zone=1 glusterfs_devices='[ "/dev/nvme1n1", "/dev/nvme2n1" ]'
+app2.training0.cc-openshift.de glusterfs_zone=2 glusterfs_devices='[ "/dev/nvme1n1", "/dev/nvme2n1" ]'
 
 [masters]
 master0.training0.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true

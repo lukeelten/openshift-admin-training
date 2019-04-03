@@ -3,6 +3,7 @@ masters
 nodes
 etcd
 
+
 [OSEv3:vars]
 ansible_user=centos
 ansible_become=true
@@ -16,34 +17,36 @@ openshift_clock_enable=true
 openshift_use_dnsmasq=true
 os_firewall_use_firewalld=true
 
-
 osm_use_cockpit=true
-openshift_release='v3.11' 
+openshift_release='v3.11'
 
 openshift_master_default_subdomain='apps.training0.cc-openshift.de'
-openshift_master_cluster_hostname='master0.training0.cc-openshift.de'
-openshift_master_cluster_public_hostname='master0.training0.cc-openshift.de'
+openshift_master_cluster_hostname='internal-master.training0.cc-openshift.de'
+openshift_master_cluster_public_hostname='master.training0.cc-openshift.de'
 
+openshift_metrics_install_metrics=true
+openshift_logging_install_logging=true
 
-# openshift_logging_install_logging=true
-# openshift_metrics_install_metrics=true
-# openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra":"true"}
-# ansible_service_broker_install=false
+openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra":"true"}
+ansible_service_broker_install=false
 
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 openshift_master_htpasswd_users={'admin': '$apr1$zgSjCrLt$1KSuj66CggeWSv.D.BXOA1', 'user': '$apr1$.gw8w9i1$ln9bfTRiD6OwuNTG5LvW50'}
 
 #openshift_master_identity_providers=[{'name': 'ldap_auth', 'challenge': 'true', 'login': 'true', 'kind': 'LDAPPasswordIdentityProvider', 'attributes': {'id': ['uid'], 'email': ['mail'], 'name': ['cn'], 'preferredUsername': ['cn']}, 'bindDN': 'cn=openshift,dc=cc-openshift,dc=de', 'bindPassword': 'OpenShiftLdap', 'insecure': 'true', 'url': 'ldap://ldap.cc-openshift.de:389/dc=cc-openshift,dc=de?cn'}]
 
+openshift_is_atomic=False
 
 [masters]
-master0.training0.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
+master[0:2].training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true
+
 
 [etcd]
-master0.training0.cc-openshift.de
+master[0:2].training0.cc-openshift.de
 
 [nodes]
-master0.training0.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
-app0.training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
-app1.training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
-app2.training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
+app[0:2].training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
+master[0:2].training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true
+infra[0:2].training0.cc-openshift.de openshift_node_group_name='node-config-infra' openshift_schedulable=true
+
+
