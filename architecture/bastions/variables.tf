@@ -1,7 +1,6 @@
 variable "Type" {
   description = "Node types: EC2 instance types to use for different nodes"
   type = "string"
-  default = "t3a.medium"
 }
 
 variable "Zone" {

@@ -5,8 +5,7 @@
      "App": 3
    },
    "Types":{
-     "Bastion":"t3.medium",
-     "Master":"m5a.xlarge",
+     "Master":"m5a.large",
      "App":"m5a.large"
    }
  }

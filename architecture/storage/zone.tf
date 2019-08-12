@@ -35,15 +35,6 @@ resource "aws_route53_record" "internal-api-record" {
   records = ["${aws_instance.master-node.public_dns}"]
 }
 
-resource "aws_route53_record" "bastion-record" {
-  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "bastion.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
-  type = "A"
-
-  ttl = "300"
-  records = ["${aws_instance.bastion.public_ip}"]
-}
-
 resource "aws_route53_record" "app-records" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
   name    = "app${count.index}.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"

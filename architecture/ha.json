@@ -2,11 +2,10 @@
   "Counts":{
     "Master":3,
     "Infra":3,
-    "App":3
+    "App": 6
   },
   "Types":{
-    "Bastion":"t3.medium",
-    "Master":"m5a.xlarge",
+    "Master":"m5a.large",
     "Infra":"m5a.large",
     "App":"m5a.large"
   }
