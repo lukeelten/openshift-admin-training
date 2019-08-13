@@ -1,34 +1,3 @@
-resource "aws_security_group" "bastion-sg" {
-  description = "Training ${var.Training} Security Group for Bastion server"
-  name        = "training-${var.Training}-bastion-sg"
-  vpc_id      = "${data.aws_vpc.vpc.id}"
-
-  ingress {
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-  
-  ingress {
-    from_port        = "-1"
-    to_port          = "-1"
-    protocol         = "icmp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port        = 0
-    to_port          = 0
-    protocol         = "-1"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "Training ${var.Training} - Bastion SG"
-    Training = "${var.Training}"
-  }
-}
 
 resource "aws_security_group" "master-sg" {
   description = "Training ${var.Training} Security Group for Master Nodes"
@@ -37,9 +6,16 @@ resource "aws_security_group" "master-sg" {
 
   ingress {
     from_port        = 8443
-    to_port          = 8443
+    to_port          = 8444
     protocol         = "tcp"
     // Should be restricted to master load balancer, but network lbs does not have security groups
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port        = 7443
+    to_port          = 7444
+    protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
@@ -74,7 +50,6 @@ resource "aws_security_group" "infra-sg" {
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
-  
 
   egress {
     from_port        = 0
