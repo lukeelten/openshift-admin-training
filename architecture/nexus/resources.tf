@@ -1,6 +1,6 @@
 provider "aws" {
   region = "eu-central-1"
-  version = "1.60"
+  version = "~> 2.7"
 }
 
 data "aws_availability_zones" "frankfurt" {}
@@ -28,10 +28,10 @@ data "aws_ami" "centos" {
 }
 
 resource "aws_vpc" "vpc" {
-  cidr_block                       = "10.20.0.0/16"
+  cidr_block                       = "10.250.0.0/16"
   enable_dns_hostnames             = true
 
-  tags {
+  tags = {
     Name = "Nexus - VPC"
   }
 }
@@ -39,7 +39,7 @@ resource "aws_vpc" "vpc" {
 resource "aws_internet_gateway" "igw" {
   vpc_id = "${aws_vpc.vpc.id}"
 
-  tags {
+  tags = {
     Name = "Nexus - Internet Gateway"
   }
 }
@@ -51,7 +51,7 @@ resource "aws_subnet" "subnet-public" {
   cidr_block              = "${cidrsubnet(aws_vpc.vpc.cidr_block, 8, 1)}"
   map_public_ip_on_launch = true
 
-  tags {
+  tags = {
     Name = "Nexus - Public Subnet"
   }
 }
@@ -64,7 +64,7 @@ resource "aws_route_table" "public-rt" {
     gateway_id = "${aws_internet_gateway.igw.id}"
   }
 
-  tags {
+  tags = {
     Name = "Nexus - Public Route Table"
   }
 }
@@ -79,57 +79,62 @@ resource "aws_security_group" "nexus-sg" {
   name        = "nexus"
   vpc_id      = "${aws_vpc.vpc.id}"
 
-  ingress = [
-    {
-      from_port        = 22
-      to_port          = 22
-      protocol         = "tcp"
-      cidr_blocks      = ["0.0.0.0/0"]
-    },
-    {
-      from_port        = 80
-      to_port          = 80
-      protocol         = "tcp"
-      cidr_blocks      = ["0.0.0.0/0"]
-    },
-    {
-      from_port        = 443
-      to_port          = 443
-      protocol         = "tcp"
-      cidr_blocks      = ["0.0.0.0/0"]
-    },
-    {
-      from_port        = 8080
-      to_port          = 8081
-      protocol         = "tcp"
-      cidr_blocks      = ["0.0.0.0/0"]
-    },
-    {
-      from_port        = 389
-      to_port          = 389
-      protocol         = "tcp"
-      cidr_blocks      = ["0.0.0.0/0"]
-    },
-    {
-      from_port        = 636
-      to_port          = 636
-      protocol         = "tcp"
-      cidr_blocks      = ["0.0.0.0/0"]
-    },
-    {
-      from_port        = 5000
-      to_port          = 5010
-      protocol         = "tcp"
-      cidr_blocks      = ["0.0.0.0/0"]
-    },
-    {
-      from_port        = "-1"
-      to_port          = "-1"
-      protocol         = "icmp"
-      cidr_blocks      = ["0.0.0.0/0"]
-    }
-  ]
-
+  ingress {
+    from_port        = 22
+    to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  
+  ingress {
+    from_port        = 80
+    to_port          = 80
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  
+  ingress {
+    from_port        = 443
+    to_port          = 443
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  
+  ingress {
+    from_port        = 8080
+    to_port          = 8081
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  
+  ingress {
+    from_port        = 389
+    to_port          = 389
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  
+  ingress {
+    from_port        = 636
+    to_port          = 636
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  
+  ingress {
+    from_port        = 5000
+    to_port          = 5010
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  
+  ingress {
+    from_port        = "-1"
+    to_port          = "-1"
+    protocol         = "icmp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+  
   egress {
     from_port        = 0
     to_port          = 0
@@ -137,7 +142,7 @@ resource "aws_security_group" "nexus-sg" {
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "Nexus SG"
   }
 }
@@ -162,7 +167,7 @@ resource "aws_instance" "nexus" {
     create_before_destroy = true
   }
 
-  tags {
+  tags = {
     Name = "Nexus Example"
     Type = "nexus"
     Training = "0"
