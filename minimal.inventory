@@ -20,9 +20,9 @@ os_firewall_use_firewalld=true
 ansible_service_broker_install=false
 openshift_enable_service_catalog=false
 
-osm_use_cockpit=true
+osm_use_cockpit=false
 openshift_release='v3.11'
-openshift_is_atomic=False
+openshift_is_atomic=fals3e
 
 openshift_master_default_subdomain='apps.training0.cc-openshift.de'
 openshift_master_cluster_hostname='internal-master.training0.cc-openshift.de'

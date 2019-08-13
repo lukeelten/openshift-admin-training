@@ -1,5 +1,5 @@
 resource "aws_instance" "app-node" {
-  depends_on      = ["aws_internet_gateway.igw", "aws_nat_gateway.private-nat", "aws_route.private_route_to_nat"]
+  depends_on      = ["aws_nat_gateway.private-nat", "aws_route.private_route_to_nat"]
 
   ami             = "${data.aws_ami.centos.id}"
   instance_type   = "${var.Types["App"]}"
@@ -10,6 +10,7 @@ resource "aws_instance" "app-node" {
   subnet_id = "${aws_subnet.subnets-private.*.id[(count.index % length(aws_subnet.subnets-private))]}"
 
   count = "${var.Counts["App"]}"
+  ebs_optimized = true
 
   root_block_device {
     volume_type = "gp2"

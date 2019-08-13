@@ -6,7 +6,8 @@ resource "aws_instance" "app-node" {
 
   vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}"]
   subnet_id = "${aws_subnet.subnets-public.*.id[(count.index % length(aws_subnet.subnets-public))]}"
-
+  ebs_optimized = true
+  
   count = "${var.Counts["App"]}"
 
   root_block_device {

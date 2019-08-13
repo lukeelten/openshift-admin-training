@@ -1,6 +1,4 @@
 resource "aws_instance" "master-node" {
-  depends_on      = ["aws_internet_gateway.igw"]
-  
   ami             = "${data.aws_ami.centos.id}"
   instance_type   = "${var.Types["Master"]}"
   key_name        = "heinlein-training-${var.Training}"
@@ -8,6 +6,7 @@ resource "aws_instance" "master-node" {
 
   vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}", "${aws_security_group.master-sg.id}", "${aws_security_group.infra-sg.id}"]
   subnet_id = "${aws_subnet.subnets-public.*.id[0]}"
+  ebs_optimized = true
 
   root_block_device {
     volume_type = "gp2"

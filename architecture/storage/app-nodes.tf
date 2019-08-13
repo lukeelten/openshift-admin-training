@@ -1,6 +1,4 @@
 resource "aws_instance" "app-node" {
-  depends_on      = ["aws_internet_gateway.igw"]
-
   ami             = "${data.aws_ami.centos.id}"
   instance_type   = "${var.Types["App"]}"
   key_name        = "heinlein-training-${var.Training}"
@@ -8,6 +6,7 @@ resource "aws_instance" "app-node" {
 
   vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}"]
   subnet_id = "${aws_subnet.subnets-public.*.id[(count.index % length(aws_subnet.subnets-public))]}"
+  ebs_optimized = true
 
   count = "${var.Counts["App"]}"
 

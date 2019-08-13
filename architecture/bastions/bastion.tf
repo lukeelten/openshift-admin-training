@@ -9,6 +9,7 @@ resource "aws_instance" "bastion" {
 
   user_data              = "${file("assets/bastion.sh")}"
   vpc_security_group_ids = ["${aws_security_group.bastion-sg.id}"]
+  ebs_optimized = true
 
   root_block_device {
     volume_type = "gp2"

@@ -40,3 +40,8 @@ data "aws_route_table" "public-rt" {
     Training = "${var.Training}"
   }
 }
+
+data "aws_security_group" "bastion-sg" {
+  vpc_id = "${data.aws_vpc.vpc.id}"
+  name = "training-${var.Training}-bastion-sg"
+}

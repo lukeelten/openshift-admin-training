@@ -1,8 +1,8 @@
 
 resource "aws_lb" "internal-lb" {
-  depends_on      = ["aws_internet_gateway.igw"]
   name = "training-${var.Training}-internal-lb"
   load_balancer_type = "network"
+  enable_cross_zone_load_balancing = true
 
   subnets = ["${aws_subnet.subnets-private.*.id}"]
   internal = true
@@ -18,7 +18,7 @@ resource "aws_lb_target_group" "internal-lb-master" {
   name     = "training-${var.Training}-internal-lb-master"
   port     = 8443
   protocol = "TCP"
-  vpc_id   = "${aws_vpc.vpc.id}"
+  vpc_id   = "${data.aws_vpc.vpc.id}"
 
   tags = {
     Name = "Training ${var.Training} - Internal Master Traffic"

@@ -157,6 +157,7 @@ resource "aws_instance" "nexus" {
 
   vpc_security_group_ids = ["${aws_security_group.nexus-sg.id}"]
   subnet_id = "${aws_subnet.subnet-public.id}"
+  ebs_optimized = true
 
   root_block_device {
     volume_type = "gp2"

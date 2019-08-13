@@ -45,14 +45,3 @@ resource "aws_route53_record" "app-records" {
   ttl = "300"
   records = ["${aws_instance.app-node.*.public_ip[count.index]}"]
 }
-
-resource "aws_route53_record" "gluster-records" {
-  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
-  name    = "gluster${count.index}.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
-  type = "A"
-
-  count = "${var.Counts["App"]}"
-
-  ttl = "300"
-  records = ["${aws_instance.app-node.*.private_ip[count.index]}"]
-}
