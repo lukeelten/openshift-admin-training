@@ -22,3 +22,21 @@ data "aws_route53_zone" "existing-zone" {
   name = "${var.Zone}"
   private_zone = false
 }
+
+data "aws_vpc" "vpc" {
+  cidr_block = "10.${var.Training}.0.0/16"
+
+  tags = {
+    Name = "Training ${var.Training} - VPC"
+    Training = "${var.Training}"
+  }
+}
+
+data "aws_route_table" "public-rt" {
+  vpc_id = "${data.aws_vpc.vpc.id}"
+  
+  tags = {
+    Name = "Training ${var.Training} - Public Route Table"
+    Training = "${var.Training}"
+  }
+}

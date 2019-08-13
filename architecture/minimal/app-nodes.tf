@@ -1,6 +1,4 @@
 resource "aws_instance" "app-node" {
-  depends_on      = ["aws_internet_gateway.igw"]
-
   ami             = "${data.aws_ami.centos.id}"
   instance_type   = "${var.Types["App"]}"
   key_name        = "heinlein-training-${var.Training}"

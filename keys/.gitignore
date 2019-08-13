@@ -1,2 +1,4 @@
 *.tfstate.backup
 .terraform
+keys.tf
+training*
