@@ -4,7 +4,7 @@ resource "aws_lb" "external-lb" {
   load_balancer_type = "network"
   enable_cross_zone_load_balancing = true
 
-  subnets = ["${aws_subnet.subnets-public.*.id}"]
+  subnets = "${compact(aws_subnet.subnets-public.*.id)}"
 
   tags = {
     Type = "external"

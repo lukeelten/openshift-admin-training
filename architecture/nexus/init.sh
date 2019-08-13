@@ -6,16 +6,14 @@ yum -y install docker rng-tools nano git bind-utils traceroute
 systemctl enable docker rngd NetworkManager
 systemctl start docker rngd NetworkManager
 
-curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose
 chmod +x /usr/bin/docker-compose
 
 NEXUS=$(cat <<EOF
-version: '3'
+version: '3.5'
 
 volumes:
   nexus:
-    driver: local
-  ldap:
     driver: local
   mariadb:
     driver: local
@@ -30,33 +28,35 @@ services:
     image: sonatype/nexus3
     expose:
       - "8081"
-      - "5000-5010"
+      - "5000-5050"
     ports:
       - "8080:8081"
-      - "5000-5010:5000-5010"
+      - "5000-5050:5000-5050"
     volumes:
       - nexus:/nexus-data
+    networks:
+      - keycloak
 
   ldap:
     restart: always
     image: osixia/openldap
-    volumes:
-      - ldap:/var/lib/ldap
     environment:
       LDAP_ORGANISATION: "codecentric AG"
       LDAP_DOMAIN: "cc-openshift.de"
       LDAP_BASE_DN: ""
-      LDAP_ADMIN_PASSWORD: "OpenShiftLdap"
+      LDAP_ADMIN_PASSWORD: "tayfFhxyVjrVwjlKNfIEsRZq4"
       LDAP_READONLY_USER: "true"
       LDAP_READONLY_USER_USERNAME: "openshift"
       LDAP_READONLY_USER_PASSWORD: "OpenShiftLdap"
     ports:
       - 389:389
       - 636:636
+    networks:
+      - keycloak
 
   keycloak:
     restart: always
-    image: jboss/keycloak:5.0.0
+    image: quay.io/keycloak/keycloak:6.0.1
     environment:
       DB_VENDOR: MARIADB
       DB_ADDR: mariadb
@@ -77,7 +77,6 @@ services:
   mariadb:
     restart: always
     image: mariadb:10.3
-    command: ["mysqld", "--collation-server=utf8mb4_unicode_ci", "--character-set-server=utf8mb4"]
     expose:
     - 3306
     volumes:
@@ -92,7 +91,6 @@ services:
 EOF
 )
 echo "$NEXUS" > /nexus.yml
-docker-compose -f /nexus.yml -p nexus up -d
 
 
 reboot

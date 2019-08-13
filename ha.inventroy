@@ -37,7 +37,6 @@ openshift_logging_es_memory_limit=2Gi
 
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 openshift_master_htpasswd_users={'admin': '$apr1$zgSjCrLt$1KSuj66CggeWSv.D.BXOA1', 'user': '$apr1$.gw8w9i1$ln9bfTRiD6OwuNTG5LvW50'}
-openshift_disable_check=docker_storage,memory_availability
 
 [masters]
 master[0:2].training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true

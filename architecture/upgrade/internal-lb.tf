@@ -4,7 +4,7 @@ resource "aws_lb" "internal-lb" {
   load_balancer_type = "network"
   enable_cross_zone_load_balancing = true
 
-  subnets = ["${aws_subnet.subnets-private.*.id}"]
+  subnets = "${compact(aws_subnet.subnets-private.*.id)}"
   internal = true
 
   tags = {

@@ -11,6 +11,7 @@ ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 deployment_type=origin
 openshift_deployment_type=origin
+openshift_release='v3.11'
 
 openshift_disable_check=docker_storage,memory_availability
 openshift_clock_enable=true
@@ -19,10 +20,8 @@ os_firewall_use_firewalld=true
 
 ansible_service_broker_install=false
 openshift_enable_service_catalog=false
-
 osm_use_cockpit=false
-openshift_release='v3.11'
-openshift_is_atomic=fals3e
+openshift_is_atomic=false
 
 openshift_master_default_subdomain='apps.training0.cc-openshift.de'
 openshift_master_cluster_hostname='internal-master.training0.cc-openshift.de'

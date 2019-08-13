@@ -10,7 +10,6 @@ data "aws_route53_zone" "existing-zone" {
   private_zone = false
 }
 
-
 data "aws_ami" "centos" {
   most_recent = true
 
@@ -56,23 +55,17 @@ resource "aws_subnet" "subnet-public" {
   }
 }
 
-resource "aws_route_table" "public-rt" {
-  vpc_id = "${aws_vpc.vpc.id}"
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.igw.id}"
-  }
-
-  tags = {
-    Name = "Nexus - Public Route Table"
-  }
-}
-
 resource "aws_route_table_association" "public-to-rt" {
   subnet_id      = "${aws_subnet.subnet-public.id}"
-  route_table_id = "${aws_route_table.public-rt.id}"
+  route_table_id = "${aws_vpc.vpc.main_route_table_id}"
 }
+
+resource "aws_route" "public-route" {
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id = "${aws_internet_gateway.igw.id}"
+  route_table_id = "${aws_vpc.vpc.main_route_table_id}"
+}
+
 
 resource "aws_security_group" "nexus-sg" {
   description = "Nexus Example"
@@ -123,7 +116,7 @@ resource "aws_security_group" "nexus-sg" {
   
   ingress {
     from_port        = 5000
-    to_port          = 5010
+    to_port          = 5050
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
@@ -161,7 +154,7 @@ resource "aws_instance" "nexus" {
 
   root_block_device {
     volume_type = "gp2"
-    volume_size = 50
+    volume_size = 100
   }
 
   lifecycle {
