@@ -6,7 +6,7 @@ resource "aws_lb" "router-lb" {
 
   subnets = ["${aws_subnet.subnets-public.*.id}"]
 
-  tags {
+  tags = {
     Type = "infra"
     Name = "Training ${var.Training} - Router Load Balancer"
     Training = "${var.Training}"
@@ -41,7 +41,7 @@ resource "aws_lb_target_group" "router-lb-tg1" {
   protocol = "TCP"
   vpc_id   = "${aws_vpc.vpc.id}"
 
-  tags {
+  tags = {
     Name = "Training ${var.Training} - Traffic Routing HTTP"
     Training = "${var.Training}"
   }
@@ -63,7 +63,7 @@ resource "aws_lb_target_group" "router-lb-tg2" {
   protocol = "TCP"
   vpc_id   = "${aws_vpc.vpc.id}"
 
-  tags {
+  tags = {
     Name = "Training ${var.Training} - Traffic Routing HTTPS"
     Training = "${var.Training}"
   }

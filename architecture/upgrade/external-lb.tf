@@ -6,7 +6,7 @@ resource "aws_lb" "external-lb" {
 
   subnets = ["${aws_subnet.subnets-public.*.id}"]
 
-  tags {
+  tags = {
     Type = "external"
     Name = "Training ${var.Training} - Public LB"
     Training = "${var.Training}"
@@ -19,7 +19,7 @@ resource "aws_lb_target_group" "external-tg-http" {
   protocol = "TCP"
   vpc_id   = "${aws_vpc.vpc.id}"
 
-  tags {
+  tags = {
     Name = "Training ${var.Training} - Public HTTP Traffic"
     Training = "${var.Training}"
   }
@@ -38,7 +38,7 @@ resource "aws_lb_target_group" "external-tg-https" {
   protocol = "TCP"
   vpc_id   = "${aws_vpc.vpc.id}"
 
-  tags {
+  tags = {
     Name = "Training ${var.Training} - Public HTTPS Traffic"
     Training = "${var.Training}"
   }
@@ -57,7 +57,7 @@ resource "aws_lb_target_group" "external-tg-master" {
   protocol = "TCP"
   vpc_id   = "${aws_vpc.vpc.id}"
 
-  tags {
+  tags = {
     Name = "Training ${var.Training} - Public Master Traffic"
     Training = "${var.Training}"
   }

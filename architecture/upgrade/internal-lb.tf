@@ -7,7 +7,7 @@ resource "aws_lb" "internal-lb" {
   subnets = ["${aws_subnet.subnets-private.*.id}"]
   internal = true
 
-  tags {
+  tags = {
     Type = "internal"
     Name = "Training ${var.Training} - Internal Master LB"
     Training = "${var.Training}"
@@ -20,9 +20,7 @@ resource "aws_lb_target_group" "internal-lb-master" {
   protocol = "TCP"
   vpc_id   = "${aws_vpc.vpc.id}"
 
-  count = "${aws_lb.internal-lb.count}"
-
-  tags {
+  tags = {
     Name = "Training ${var.Training} - Internal Master Traffic"
     Training = "${var.Training}"
   }
@@ -36,8 +34,6 @@ resource "aws_lb_target_group" "internal-lb-master" {
 }
 
 resource "aws_lb_listener" "internal-lb-listener" {
-  count = "${aws_lb.internal-lb.count}"
-
   load_balancer_arn = "${aws_lb.internal-lb.arn}"
   port              = "8443"
   protocol          = "TCP"

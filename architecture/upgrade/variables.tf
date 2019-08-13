@@ -1,7 +1,6 @@
 variable "Types" {
   description = "Node types: EC2 instance types to use for different nodes"
   type = "map"
-  # Bastion
   # Master
   # Infra
   # App

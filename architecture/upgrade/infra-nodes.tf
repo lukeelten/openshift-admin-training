@@ -6,7 +6,7 @@ resource "aws_instance" "infra-node" {
   key_name        = "heinlein-training-${var.Training}"
   user_data       = "${file("assets/init.sh")}"
   vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}", "${aws_security_group.infra-sg.id}"]
-  subnet_id = "${aws_subnet.subnets-private.*.id[(count.index % aws_subnet.subnets-private.count)]}"
+  subnet_id = "${aws_subnet.subnets-private.*.id[(count.index % length(aws_subnet.subnets-private))]}"
 
   count = "${var.Counts["Infra"]}"
 
@@ -19,7 +19,7 @@ resource "aws_instance" "infra-node" {
     create_before_destroy = true
   }
 
-  tags {
+  tags = {
     Type = "infra"
     Name = "Training ${var.Training} - Infrastructure Node ${count.index + 1}"
     Training = "${var.Training}"
