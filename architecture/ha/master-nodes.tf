@@ -7,7 +7,7 @@ resource "aws_instance" "master-node" {
   user_data       = "${file("assets/init.sh")}"
 
   vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}", "${aws_security_group.master-sg.id}"]
-  subnet_id = "${aws_subnet.subnets-private.*.id[(count.index % aws_subnet.subnets-private.count)]}"
+  subnet_id = "${aws_subnet.subnets-private.*.id[(count.index % length(aws_subnet.subnets-private))]}"
 
   count = "${var.Counts["Master"]}"
 
@@ -20,7 +20,7 @@ resource "aws_instance" "master-node" {
     create_before_destroy = true
   }
 
-  tags {
+  tags = {
     Type = "master"
     Name = "Training ${var.Training} - Master Node ${count.index + 1}"
     Training = "${var.Training}"

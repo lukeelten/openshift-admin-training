@@ -28,8 +28,6 @@ resource "aws_route53_record" "internal-api-record" {
   name    = "internal-master.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "A"
 
-  count = "${aws_lb.internal-lb.count}"
-
   alias {
     name = "${aws_lb.internal-lb.dns_name}"
     evaluate_target_health = false
