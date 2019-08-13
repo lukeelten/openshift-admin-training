@@ -1,7 +1,6 @@
 variable "Types" {
   description = "Node types: EC2 instance types to use for different nodes"
   type = "map"
-  # Bastion
   # Master
   # Infra
   # App
@@ -16,8 +15,6 @@ variable "Zone" {
 variable "Counts" {
   description = "Number of instances per node type"
   type = "map"
-  # Master
-  # Infra
   # App
 }
 

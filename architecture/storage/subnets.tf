@@ -7,14 +7,14 @@ resource "aws_subnet" "subnets-public" {
   cidr_block              = "${cidrsubnet(aws_vpc.vpc.cidr_block, 8, (1 + count.index))}"
   map_public_ip_on_launch = true
 
-  tags {
+  tags = {
     Name = "Training ${var.Training} - Public Subnet ${count.index + 1}"
     Training = "${var.Training}"
   }
 }
 
 resource "aws_route_table_association" "public-to-rt" {
-  count = "${aws_subnet.subnets-public.count}"
+  count = "${length(aws_subnet.subnets-public)}"
 
   subnet_id      = "${aws_subnet.subnets-public.*.id[count.index]}"
   route_table_id = "${aws_route_table.public-rt.id}"

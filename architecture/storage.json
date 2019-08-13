@@ -1,7 +1,6 @@
 {
   "Zone":"cc-openshift.de",
    "Counts":{
-     "Master": 1,
      "App": 3
    },
    "Types":{

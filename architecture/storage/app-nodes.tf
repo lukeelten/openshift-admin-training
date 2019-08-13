@@ -7,7 +7,7 @@ resource "aws_instance" "app-node" {
   user_data       = "${file("assets/init.sh")}"
 
   vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}"]
-  subnet_id = "${aws_subnet.subnets-public.*.id[(count.index % aws_subnet.subnets-public.count)]}"
+  subnet_id = "${aws_subnet.subnets-public.*.id[(count.index % length(aws_subnet.subnets-public))]}"
 
   count = "${var.Counts["App"]}"
 
@@ -34,7 +34,7 @@ resource "aws_instance" "app-node" {
     create_before_destroy = true
   }
 
-  tags {
+  tags = {
     Type = "app"
     Name = "Training ${var.Training} - App ${count.index + 1}"
     Training = "${var.Training}"

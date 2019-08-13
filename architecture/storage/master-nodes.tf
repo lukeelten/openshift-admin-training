@@ -7,9 +7,7 @@ resource "aws_instance" "master-node" {
   user_data       = "${file("assets/init.sh")}"
 
   vpc_security_group_ids = ["${aws_security_group.nodes-sg.id}", "${aws_security_group.master-sg.id}", "${aws_security_group.infra-sg.id}"]
-  subnet_id = "${aws_subnet.subnets-public.*.id[(count.index % aws_subnet.subnets-public.count)]}"
-
-  count = "${var.Counts["Master"]}"
+  subnet_id = "${aws_subnet.subnets-public.*.id[0]}"
 
   root_block_device {
     volume_type = "gp2"
@@ -20,9 +18,9 @@ resource "aws_instance" "master-node" {
     create_before_destroy = true
   }
 
-  tags {
+  tags = {
     Type = "master"
-    Name = "Training ${var.Training} - Master Node ${count.index + 1}"
+    Name = "Training ${var.Training} - Master Node"
     Training = "${var.Training}"
   }
 }
