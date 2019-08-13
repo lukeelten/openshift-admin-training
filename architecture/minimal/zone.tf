@@ -40,7 +40,7 @@ resource "aws_route53_record" "app-records" {
   name    = "app${count.index}.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
 
-  count = "${var.Counts["App"]}"
+  count = "${length(aws_instance.app-node)}"
 
   ttl = "300"
   records = ["${aws_instance.app-node.*.public_dns[count.index]}"]
