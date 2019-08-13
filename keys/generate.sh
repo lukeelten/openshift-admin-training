@@ -11,7 +11,7 @@ append() {
 provider() {
     append 'provider "aws" {'
     append '  region = "eu-central-1"'
-    append '  version = "~> 2.0"'
+    append '  version = "~> 2.7"'
     append '}'
     append ''
 }
