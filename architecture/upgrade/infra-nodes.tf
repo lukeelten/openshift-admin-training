@@ -9,6 +9,7 @@ resource "aws_instance" "infra-node" {
   subnet_id = "${aws_subnet.subnets-private.*.id[(count.index % length(aws_subnet.subnets-private))]}"
 
   count = "${var.Counts["Infra"]}"
+  ebs_optimized = true
 
   root_block_device {
     volume_type = "gp2"

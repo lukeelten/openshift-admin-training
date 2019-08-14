@@ -10,6 +10,7 @@ resource "aws_instance" "app-node" {
   subnet_id = "${aws_subnet.subnets-private.*.id[(count.index % length(aws_subnet.subnets-private))]}"
 
   count = "${var.Counts["App"]}"
+  ebs_optimized = true
 
   root_block_device {
     volume_type = "gp2"
