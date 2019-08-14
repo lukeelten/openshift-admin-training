@@ -43,5 +43,5 @@ resource "aws_route53_record" "app-records" {
   count = "${var.Counts["App"]}"
 
   ttl = "300"
-  records = ["${aws_instance.app-node.*.public_ip[count.index]}"]
+  records = ["${aws_instance.app-node.*.private_ip[count.index]}"]
 }
