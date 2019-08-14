@@ -32,7 +32,7 @@ resource "aws_route53_record" "internal-api-record" {
   type = "CNAME"
 
   ttl = "300"
-  records = ["${aws_instance.master-node.public_dns}"]
+  records = ["${aws_instance.master-node.private_dns}"]
 }
 
 resource "aws_route53_record" "app-records" {
@@ -43,5 +43,5 @@ resource "aws_route53_record" "app-records" {
   count = "${length(aws_instance.app-node)}"
 
   ttl = "300"
-  records = ["${aws_instance.app-node.*.public_dns[count.index]}"]
+  records = ["${aws_instance.app-node.*.private_dns[count.index]}"]
 }

@@ -5,4 +5,5 @@ yum -y install origin-clients nano python2-passlib  httpd-tools patch java-1.8.0
 yum -y install python-passlib pyOpenSSL python-cryptography python-lxml python2-pip python-devel
 systemctl enable firewalld NetworkManager rngd
 sudo -u centos -i git clone https://github.com/openshift/openshift-ansible.git
+sudo -u centos -i git clone https://github.com/lukeelten/openshift-admin-training.git workshop
 reboot

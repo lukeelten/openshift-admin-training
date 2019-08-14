@@ -6,7 +6,6 @@ new_nodes
 new_masters
 new_etcd
 
-
 [OSEv3:vars]
 ansible_user=centos
 ansible_become=true
@@ -43,31 +42,23 @@ openshift_master_htpasswd_users={'admin': '$apr1$zgSjCrLt$1KSuj66CggeWSv.D.BXOA1
 
 [masters]
 master0.training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true
-#master1.training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true
-#master2.training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true
 
 [etcd]
 master0.training0.cc-openshift.de
-#master1.training0.cc-openshift.de
-#master2.training0.cc-openshift.de
 
 [nodes]
 master0.training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true
 infra0.training0.cc-openshift.de openshift_node_group_name='node-config-infra' openshift_schedulable=true
-app0.training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
+app[0:2].training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
 
  
 [new_nodes] 
-# master1.training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=tr ue
-# master2.training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=tr ue
-# infra1.training0.cc-openshift.de openshift_node_group_name='node-config-infra' openshift_schedulable=true 
-# app1.training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
-# app2.training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
+# master[1:2].training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true
+# infra[1:2].training0.cc-openshift.de openshift_node_group_name='node-config-infra' openshift_schedulable=true 
+# app[3:5].training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
 
 [new_masters]
-# master1.training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true
-# master2.training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true
+# master[1:2].training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true
 
 [new_etcd]
-# master1.training0.cc-openshift.de
-# master2.training0.cc-openshift.de
+# master[1:2].training0.cc-openshift.de

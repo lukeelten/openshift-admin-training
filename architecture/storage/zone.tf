@@ -32,16 +32,16 @@ resource "aws_route53_record" "internal-api-record" {
   type = "CNAME"
 
   ttl = "300"
-  records = ["${aws_instance.master-node.public_dns}"]
+  records = ["${aws_instance.master-node.private_dns}"]
 }
 
 resource "aws_route53_record" "app-records" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
   name    = "app${count.index}.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
-  type = "A"
+  type = "CNAME"
 
-  count = "${var.Counts["App"]}"
+  count = "${length(aws_instance.app-node)}"
 
   ttl = "300"
-  records = ["${aws_instance.app-node.*.private_ip[count.index]}"]
+  records = ["${aws_instance.app-node.*.private_dns[count.index]}"]
 }
