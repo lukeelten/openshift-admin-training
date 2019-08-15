@@ -18,6 +18,7 @@ resource "aws_lb_target_group" "internal-lb-master" {
   name     = "training-${var.Training}-internal-lb-master"
   port     = 8443
   protocol = "TCP"
+  target_type = "ip"
   vpc_id   = "${data.aws_vpc.vpc.id}"
 
   tags = {

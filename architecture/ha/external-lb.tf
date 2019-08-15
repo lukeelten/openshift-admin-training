@@ -19,6 +19,7 @@ resource "aws_lb_target_group" "external-tg-http" {
   port     = 80
   protocol = "TCP"
   vpc_id   = "${data.aws_vpc.vpc.id}"
+  target_type = "ip"
 
   tags = {
     Name = "Training ${var.Training} - Public HTTP Traffic"
@@ -38,6 +39,7 @@ resource "aws_lb_target_group" "external-tg-https" {
   port     = 443
   protocol = "TCP"
   vpc_id   = "${data.aws_vpc.vpc.id}"
+  target_type = "ip"
 
   tags = {
     Name = "Training ${var.Training} - Public HTTPS Traffic"
@@ -57,6 +59,7 @@ resource "aws_lb_target_group" "external-tg-master" {
   port     = 8443
   protocol = "TCP"
   vpc_id   = "${data.aws_vpc.vpc.id}"
+  target_type = "ip"
 
   tags = {
     Name = "Training ${var.Training} - Public Master Traffic"
