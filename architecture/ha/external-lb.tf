@@ -20,6 +20,7 @@ resource "aws_lb_target_group" "external-tg-http" {
   protocol = "TCP"
   vpc_id   = "${data.aws_vpc.vpc.id}"
   target_type = "ip"
+  deregistration_delay = 30
 
   tags = {
     Name = "Training ${var.Training} - Public HTTP Traffic"
@@ -40,6 +41,7 @@ resource "aws_lb_target_group" "external-tg-https" {
   protocol = "TCP"
   vpc_id   = "${data.aws_vpc.vpc.id}"
   target_type = "ip"
+  deregistration_delay = 30
 
   tags = {
     Name = "Training ${var.Training} - Public HTTPS Traffic"
@@ -60,6 +62,7 @@ resource "aws_lb_target_group" "external-tg-master" {
   protocol = "TCP"
   vpc_id   = "${data.aws_vpc.vpc.id}"
   target_type = "ip"
+  deregistration_delay = 30
 
   tags = {
     Name = "Training ${var.Training} - Public Master Traffic"

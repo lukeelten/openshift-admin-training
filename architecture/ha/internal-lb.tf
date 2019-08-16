@@ -20,7 +20,8 @@ resource "aws_lb_target_group" "internal-lb-master" {
   protocol = "TCP"
   target_type = "ip"
   vpc_id   = "${data.aws_vpc.vpc.id}"
-
+  deregistration_delay = 30
+  
   tags = {
     Name = "Training ${var.Training} - Internal Master Traffic"
     Training = "${var.Training}"

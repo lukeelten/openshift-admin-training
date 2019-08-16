@@ -30,7 +30,7 @@ resource "aws_instance" "master-node" {
 
 resource "aws_lb_target_group_attachment" "master-to-master-lb" {
   target_group_arn = "${aws_lb_target_group.external-tg-master.arn}"
-  target_id        = "${aws_instance.master-node.*.id[count.index]}"
+  target_id        = "${aws_instance.master-node.*.private_ip[count.index]}"
   port             = 8443
 
   count = "${var.Counts["Master"]}"
@@ -38,7 +38,7 @@ resource "aws_lb_target_group_attachment" "master-to-master-lb" {
 
 resource "aws_lb_target_group_attachment" "master-to-internal-lb" {
   target_group_arn = "${aws_lb_target_group.internal-lb-master.arn}"
-  target_id        = "${aws_instance.master-node.*.id[count.index]}"
+  target_id        = "${aws_instance.master-node.*.private_ip[count.index]}"
   port             = 8443
 
   count = "${var.Counts["Master"]}"
