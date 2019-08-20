@@ -85,6 +85,20 @@ resource "aws_security_group" "nexus-sg" {
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
+
+  ingress {
+    from_port        = 111
+    to_port          = 111
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port        = 2049
+    to_port          = 2049
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
   
   ingress {
     from_port        = 443
@@ -189,6 +203,15 @@ resource "aws_route53_record" "ldap-record" {
 resource "aws_route53_record" "sso-record" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
   name    = "sso.${data.aws_route53_zone.existing-zone.name}"
+  type = "A"
+
+  ttl = "300"
+  records = ["${aws_instance.nexus.public_ip}"]
+}
+
+resource "aws_route53_record" "nfs-record" {
+  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  name    = "nfs.${data.aws_route53_zone.existing-zone.name}"
   type = "A"
 
   ttl = "300"

@@ -6,7 +6,7 @@
   },
   "Types":{
     "Master":"m5a.xlarge",
-    "Infra":"m5a.large",
+    "Infra":"m5a.xlarge",
     "App":"m5a.large"
   }
 }
