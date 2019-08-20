@@ -14,7 +14,7 @@ resource "aws_route53_record" "master-record1" {
   type = "CNAME"
 
   ttl = "300"
-  records = ["${aws_instance.master-node.public_dns}"]
+  records = ["${aws_instance.master-node.private_dns}"]
 }
 
 resource "aws_route53_record" "master-record2" {

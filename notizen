@@ -18,3 +18,48 @@ ansible -i inventory nodes -a 'yum -y install glusterfs glusterfs-client-xlators
 
 ansible-playbook -i inventory openshift-ansible/playbooks/prerequisites.yml
 ansible-playbook -i inventory openshift-ansible/playbooks/deploy_cluster.yml
+
+
+heketi-cli topology info
+heketi-cli device add --name=/dev/nvme2n1 --node=$NODE
+
+heketi-cli device disable $DEVICE_ID
+heketi-cli device remove $DEVICE_ID
+
+heketi-cli node list
+
+export HEKETI_POD=$(oc get pods -l glusterfs=heketi- registry-pod -o jsonpath='{.items[0].metadata.name}' -n infra-storage)
+export
+HEKETI_CLI_SERVER=http://$(oc get route -l
+glusterfs=heketi-
+registry-route -o
+jsonpath='{.items[0].s
+pec.host}' -n infra-
+storage)
+export
+HEKETI_CLI_USER=admin
+export
+HEKETI_CLI_KEY=$(oc
+get pod/$HEKETI_POD -o
+jsonpath='{.spec.conta
+iners[0].env[?
+(@.name=="HEKETI_ADMIN
+_KEY")].value}' -n
+infra-storage)
+
+
+
+expanding:
+master-config
+kubernetesMasterConfig:
+apiServerArguments:
+feature-gates:
+-ExpandPersistentVolumes=true
+
+sed '/volumeBindingMode:
+Immediate/a
+allowVolumeExpansion: true'
+glusterfs-storage.yaml >
+glusterfs-storage-new.yaml
+
+# increase pv size
