@@ -6,18 +6,18 @@ yum -y install docker rng-tools nano git bind-utils traceroute
 systemctl enable docker rngd NetworkManager firewalld
 systemctl start firewalld
 
-firewall-cmd --permanent --zone=public --add-service=nfs
-firewall-cmd --permanent --zone=public --add-service=mountd
-firewall-cmd --permanent --zone=public --add-service=rpc-bind
-firewall-cmd --reload
-
-mkdir /export
-
-EXPORTS=$(cat <<EOF
-/export     *.*.*.*(rw,sync,no_root_squash,no_all_squash)
-EOF
-)
-echo "$EXPORTS" >> /etc/exports
+#firewall-cmd --permanent --zone=public --add-service=nfs
+#firewall-cmd --permanent --zone=public --add-service=mountd
+#firewall-cmd --permanent --zone=public --add-service=rpc-bind
+#firewall-cmd --reload
+#
+#mkdir /export
+#
+#EXPORTS=$(cat <<EOF
+#/export     *.*.*.*(rw,sync,no_root_squash,no_all_squash)
+#EOF
+#)
+#echo "$EXPORTS" >> /etc/exports
 
 
 curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose

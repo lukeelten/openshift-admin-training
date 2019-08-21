@@ -1,7 +1,7 @@
 #!/bin/bash
 
 yum -y update
-yum -y install epel-release NetworkManager firewalld nfs-utils
+yum -y install epel-release NetworkManager nfs-utils
 yum -y install rng-tools nano git bind-utils traceroute targetcli iscsi-initiator-utils
 systemctl enable rngd NetworkManager nfs-server target
 
@@ -18,7 +18,7 @@ systemctl enable rngd NetworkManager nfs-server target
 mkdir /export
 
 EXPORTS=$(cat <<EOF
-/export     10.*.*.*(rw,sync,no_root_squash,no_all_squash)
+/export     *(rw,sync,no_root_squash,no_all_squash)
 EOF
 )
 echo "$EXPORTS" >> /etc/exports
