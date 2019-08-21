@@ -23,9 +23,9 @@ openshift_enable_service_catalog=false
 osm_use_cockpit=false
 openshift_is_atomic=false
 
-openshift_master_default_subdomain='apps.training0.cc-openshift.de'
-openshift_master_cluster_hostname='internal-master.training0.cc-openshift.de'
-openshift_master_cluster_public_hostname='master.training0.cc-openshift.de'
+openshift_master_default_subdomain='apps.training4.cc-openshift.de'
+openshift_master_cluster_hostname='master0.training4.cc-openshift.de'
+openshift_master_cluster_public_hostname='master0.training4.cc-openshift.de'
 
 openshift_logging_install_logging=true
 openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra":"true"}
@@ -56,16 +56,16 @@ openshift_storage_glusterfs_heketi_admin_key=snSvtK7f6ZY6tcJUavzHW9CxG8RH2Ahe
 openshift_storage_glusterfs_heketi_image="docker.io/heketi/heketi:8"
 
 [glusterfs]
-app0.training0.cc-openshift.de glusterfs_zone=1 glusterfs_devices='[ "/dev/nvme1n1" ]'
-app1.training0.cc-openshift.de glusterfs_zone=2 glusterfs_devices='[ "/dev/nvme1n1" ]'
-app2.training0.cc-openshift.de glusterfs_zone=3 glusterfs_devices='[ "/dev/nvme1n1" ]'
+app0.training4.cc-openshift.de glusterfs_zone=1 glusterfs_devices='[ "/dev/nvme1n1" ]'
+app1.training4.cc-openshift.de glusterfs_zone=2 glusterfs_devices='[ "/dev/nvme1n1" ]'
+app2.training4.cc-openshift.de glusterfs_zone=3 glusterfs_devices='[ "/dev/nvme1n1" ]'
 
 [masters]
-master0.training0.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
+master0.training4.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
 
 [etcd]
-master0.training0.cc-openshift.de
+master0.training4.cc-openshift.de
 
 [nodes]
-master0.training0.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
-app[0:2].training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
+master0.training4.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
+app[0:2].training4.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true

@@ -29,24 +29,9 @@ heketi-cli device remove $DEVICE_ID
 heketi-cli node list
 
 export HEKETI_POD=$(oc get pods -l glusterfs=heketi- registry-pod -o jsonpath='{.items[0].metadata.name}' -n infra-storage)
-export
-HEKETI_CLI_SERVER=http://$(oc get route -l
-glusterfs=heketi-
-registry-route -o
-jsonpath='{.items[0].s
-pec.host}' -n infra-
-storage)
-export
-HEKETI_CLI_USER=admin
-export
-HEKETI_CLI_KEY=$(oc
-get pod/$HEKETI_POD -o
-jsonpath='{.spec.conta
-iners[0].env[?
-(@.name=="HEKETI_ADMIN
-_KEY")].value}' -n
-infra-storage)
-
+export HEKETI_CLI_SERVER=http://$(oc get route -l glusterfs=heketi-registry-route -o jsonpath='{.items[0].spec.host}' -n infra-storage)
+export HEKETI_CLI_USER=admin
+export HEKETI_CLI_KEY=$(oc get pod/$HEKETI_POD -o jsonpath='{.spec.containers[0].env[?(@.name=="HEKETI_ADMIN_KEY")].value}' -n infra-storage)
 
 
 expanding:
@@ -56,10 +41,6 @@ apiServerArguments:
 feature-gates:
 -ExpandPersistentVolumes=true
 
-sed '/volumeBindingMode:
-Immediate/a
-allowVolumeExpansion: true'
-glusterfs-storage.yaml >
-glusterfs-storage-new.yaml
+sed '/volumeBindingMode: Immediate/a allowVolumeExpansion: true' glusterfs-storage.yaml > glusterfs-storage-new.yaml
 
 # increase pv size
