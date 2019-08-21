@@ -89,14 +89,28 @@ resource "aws_security_group" "nexus-sg" {
   ingress {
     from_port        = 111
     to_port          = 111
-    protocol         = "-1"
+    protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
   ingress {
     from_port        = 2049
     to_port          = 2049
-    protocol         = "-1"
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port        = 111
+    to_port          = 111
+    protocol         = "udp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port        = 2049
+    to_port          = 2049
+    protocol         = "udp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
   
