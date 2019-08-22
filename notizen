@@ -38,8 +38,8 @@ expanding:
 master-config
 kubernetesMasterConfig:
 apiServerArguments:
-feature-gates:
--ExpandPersistentVolumes=true
+  feature-gates:
+  - ExpandPersistentVolumes=true
 
 sed '/volumeBindingMode: Immediate/a allowVolumeExpansion: true' glusterfs-storage.yaml > glusterfs-storage-new.yaml
 
