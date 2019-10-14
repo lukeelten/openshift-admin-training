@@ -1,4 +1,4 @@
-# OpenShift Installation und Administration
+# OpenShift 3 Installation und Administration
 
 ## Kennen lernen
 
