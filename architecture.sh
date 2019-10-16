@@ -56,7 +56,7 @@ echo "${ACTION_NAME} ${COUNT} architectures of type ${ARCH}"
 
 for i in $(seq 0 "${COUNT}"); do
     echo "${ACTION_NAME} architecture ${i}"
-    terraform ${ACTION} -var-file="${CONF}" -var "Training=${i}" -state="${STATE_PATH}/state-${i}.tfstate" -input=false -auto-approve > /dev/null
+    terraform ${ACTION} -var-file="${CONF}" -var "Training=${i}" -state="${STATE_PATH}/state-${i}.tfstate" -input=false -auto-approve
 done
 
 echo "Finished"
