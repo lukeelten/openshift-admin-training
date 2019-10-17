@@ -35,7 +35,6 @@ openshift_logging_install_logging=false
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 openshift_master_htpasswd_users={'admin': '$apr1$zgSjCrLt$1KSuj66CggeWSv.D.BXOA1', 'user': '$apr1$.gw8w9i1$ln9bfTRiD6OwuNTG5LvW50'}
 
-#openshift_master_identity_providers=[{'name': 'ldap_auth', 'challenge': 'true', 'login': 'true', 'kind': 'LDAPPasswordIdentityProvider', 'attributes': {'id': ['uid'], 'email': ['mail'], 'name': ['cn'], 'preferredUsername': ['cn']}, 'bindDN': 'cn=openshift,dc=cc-openshift,dc=de', 'bindPassword': 'OpenShiftLdap', 'insecure': 'true', 'url': 'ldap://ldap.cc-openshift.de:389/dc=cc-openshift,dc=de?cn'}]
 
 [masters]
 master0.training0.cc-openshift.de openshift_node_group_name='node-config-master-infra' openshift_schedulable=true
