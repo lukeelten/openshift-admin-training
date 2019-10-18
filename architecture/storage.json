@@ -4,8 +4,8 @@
      "App": 3
    },
    "Types":{
-     "Master":"m5a.xlarge",
-     "App":"m5a.large",
+     "Master":"m5.xlarge",
+     "App":"m5.large",
      "NFS": "t3a.large"
    }
  }
