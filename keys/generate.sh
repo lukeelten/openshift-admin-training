@@ -37,9 +37,13 @@ add_key "0" "$HOST_KEY"
 
 for i in $(seq 1 $NUM); do
     FILENAME="training$i"
-    echo "Generate key $i to file: '${FILENAME}'"
-
-    ssh-keygen -t rsa -b 4096 -C '' -P '' -f "${FILENAME}" > /dev/null
+    if [[ ! -f "${FILENAME}" ]]; then
+        echo "Generate key $i to file: '${FILENAME}'"
+        ssh-keygen -t rsa -b 4096 -C "Heinlein Training ${i}" -P '' -f "${FILENAME}" > /dev/null
+    else
+        echo "Key ${FILENAME} already exists"
+    fi
+    
     PUB_KEY=$(cat "training${i}.pub")
     add_key "$i" "${PUB_KEY}" 
 done
