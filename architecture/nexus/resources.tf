@@ -122,29 +122,8 @@ resource "aws_security_group" "nexus-sg" {
   }
   
   ingress {
-    from_port        = 8080
-    to_port          = 8081
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-  
-  ingress {
     from_port        = 389
     to_port          = 389
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-  
-  ingress {
-    from_port        = 636
-    to_port          = 636
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-  
-  ingress {
-    from_port        = 5000
-    to_port          = 5050
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
@@ -172,7 +151,7 @@ resource "aws_instance" "nexus" {
   depends_on      = ["aws_internet_gateway.igw"]
 
   ami             = "${data.aws_ami.centos.id}"
-  instance_type   = "m5a.xlarge"
+  instance_type   = "m5.xlarge"
   key_name        = "heinlein-training-0"
   user_data       = "${file("init.sh")}"
 
@@ -226,6 +205,15 @@ resource "aws_route53_record" "sso-record" {
 resource "aws_route53_record" "nfs-record" {
   zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
   name    = "nfs.${data.aws_route53_zone.existing-zone.name}"
+  type = "A"
+
+  ttl = "300"
+  records = ["${aws_instance.nexus.public_ip}"]
+}
+
+resource "aws_route53_record" "docker-record" {
+  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  name    = "registry.${data.aws_route53_zone.existing-zone.name}"
   type = "A"
 
   ttl = "300"
