@@ -85,34 +85,6 @@ resource "aws_security_group" "nexus-sg" {
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
-
-  ingress {
-    from_port        = 111
-    to_port          = 111
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port        = 2049
-    to_port          = 2049
-    protocol         = "tcp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port        = 111
-    to_port          = 111
-    protocol         = "udp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port        = 2049
-    to_port          = 2049
-    protocol         = "udp"
-    cidr_blocks      = ["0.0.0.0/0"]
-  }
   
   ingress {
     from_port        = 443
@@ -124,6 +96,13 @@ resource "aws_security_group" "nexus-sg" {
   ingress {
     from_port        = 389
     to_port          = 389
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port        = 636
+    to_port          = 636
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
