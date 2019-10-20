@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: LDAPSyncConfig
+url: ldap://ldap.cc-openshift.de:389
+bindDN: cn=openshift,dc=cc-openshift,dc=de
+bindPassword: ""
+insecure: true
+rfc2307:
+  groupsQuery:
+    baseDN: "dc=cc-openshift,dc=de"
+    scope: sub
+    filter: "(objectclass=posixGroup)"
+    derefAliases: never
+  groupUIDAttribute: gidNumber
+  groupNameAttributes: [ cn ]
+  groupMembershipAttributes: [ memberUid ]
+  usersQuery:
+    baseDN: "ou=training,dc=cc-openshift,dc=de"
+    scope: sub
+    filter: "(objectclass=inetOrgPerson)"
+    derefAliases: never
+  userUIDAttribute: uid
+  userNameAttributes: [ "uid" ]
+
+
+# oc adm groups sync --sync-config=sync.yaml --confirm
+# oc adm policy add-cluster-role-to-group cluster-admin openshift-admin
