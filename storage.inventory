@@ -53,9 +53,6 @@ openshift_storage_glusterfs_block_host_vol_size=20
 openshift_storage_glusterfs_block_host_vol_create=true
 openshift_storage_glusterfs_heketi_admin_key=snSvtK7f6ZY6tcJUavzHW9CxG8RH2Ahe
 
-# Heketi
-openshift_storage_glusterfs_heketi_image="docker.io/heketi/heketi:8"
-
 [glusterfs]
 app0.training0.cc-openshift.de glusterfs_zone=1 glusterfs_devices='[ "/dev/nvme1n1" ]'
 app1.training0.cc-openshift.de glusterfs_zone=2 glusterfs_devices='[ "/dev/nvme1n1" ]'
