@@ -1,0 +1,50 @@
+[OSEv3:children]
+masters
+nodes
+etcd
+
+[OSEv3:vars]
+
+ansible_user=centos
+ansible_become=true
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+
+deployment_type=origin
+openshift_deployment_type=origin
+
+openshift_disable_check=docker_storage,memory_availability
+openshift_clock_enable=true
+openshift_use_dnsmasq=true
+os_firewall_use_firewalld=true
+
+ansible_service_broker_install=false
+openshift_enable_service_catalog=false
+openshift_master_cluster_method=native
+
+osm_use_cockpit=false
+openshift_release='v3.11'
+openshift_is_atomic=false
+
+openshift_master_default_subdomain='apps.training0.cc-openshift.de'
+openshift_master_cluster_hostname='internal-master.training0.cc-openshift.de'
+openshift_master_cluster_public_hostname='master.training0.cc-openshift.de'
+
+
+openshift_logging_install_logging=true
+openshift_metrics_install_metrics=true
+openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra":"true"}
+openshift_logging_es_memory_limit=2Gi
+
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
+openshift_master_htpasswd_users={'admin': '$apr1$zgSjCrLt$1KSuj66CggeWSv.D.BXOA1', 'user': '$apr1$.gw8w9i1$ln9bfTRiD6OwuNTG5LvW50'}
+
+[masters]
+master0.training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true
+
+[etcd]
+master0.training0.cc-openshift.de
+
+[nodes]
+master0.training0.cc-openshift.de openshift_node_group_name='node-config-master' openshift_schedulable=true
+infra0.training0.cc-openshift.de openshift_node_group_name='node-config-infra' openshift_schedulable=true
+app[0:2].training0.cc-openshift.de openshift_node_group_name='node-config-compute' openshift_schedulable=true
