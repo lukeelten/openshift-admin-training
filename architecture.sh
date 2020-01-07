@@ -25,7 +25,7 @@ if [[ ! -d "${ARCH_DIR}" || ! -f "${CONF}" ]]; then
     exit 2
 fi
 
-if [[ ${COUNT} -lt 0 || ${COUNT} -gt 99 ]]; then    
+if [[ ${COUNT} -lt -1 || ${COUNT} -gt 99 ]]; then    
     echo "Invalid count given: ${COUNT}" > /dev/stderr
     exit 3
 fi
@@ -37,7 +37,7 @@ mkdir -p "${STATE_PATH}"
 
 ACTION="apply"
 ACTION_NAME="Build"
-if [[ ${COUNT} -eq 0 ]]; then
+if [[ ${COUNT} -eq -1 ]]; then
     ACTION="destroy"
     ACTION_NAME="Cleanup"
 
@@ -57,6 +57,9 @@ echo "${ACTION_NAME} ${COUNT} architectures of type ${ARCH}"
 for i in $(seq 0 "${COUNT}"); do
     echo "${ACTION_NAME} architecture ${i}"
     terraform ${ACTION} -var-file="${CONF}" -var "Training=${i}" -state="${STATE_PATH}/state-${i}.tfstate" -input=false -auto-approve
+    if [[ $2 -eq -1 ]] && [[ $? -eq 0 ]]; then
+        rm -f "${STATE_PATH}/state-${i}.tfstate"
+    fi
 done
 
 echo "Finished"

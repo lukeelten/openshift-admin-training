@@ -4,7 +4,7 @@
     "App": 3
   },
   "Types":{
-    "Master":"m5.xlarge",
-    "App":"m5.large"
+    "Master":"m5a.2xlarge",
+    "App":"m5a.xlarge"
   }
 }
