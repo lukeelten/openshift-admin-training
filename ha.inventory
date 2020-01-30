@@ -30,10 +30,10 @@ openshift_master_cluster_hostname='internal-master.training0.cc-openshift.de'
 openshift_master_cluster_public_hostname='master.training0.cc-openshift.de'
 
 
-openshift_logging_install_logging=true
+openshift_logging_install_logging=false
 openshift_metrics_install_metrics=true
-openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra":"true"}
-openshift_logging_es_memory_limit=2Gi
+#openshift_logging_es_nodeselector={"node-role.kubernetes.io/infra":"true"}
+#openshift_logging_es_memory_limit=2Gi
 
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider'}]
 openshift_master_htpasswd_users={'admin': '$apr1$zgSjCrLt$1KSuj66CggeWSv.D.BXOA1', 'user': '$apr1$.gw8w9i1$ln9bfTRiD6OwuNTG5LvW50'}
