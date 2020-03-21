@@ -56,7 +56,7 @@ services:
 
   keycloak:
     restart: always
-    image: quay.io/keycloak/keycloak:7.0.1
+    image: quay.io/keycloak/keycloak:9.0.0
     environment:
       DB_VENDOR: MARIADB
       DB_ADDR: mariadb

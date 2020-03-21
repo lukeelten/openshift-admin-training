@@ -1,15 +1,15 @@
 variable "Type" {
   description = "Node types: EC2 instance types to use for different nodes"
-  type = "string"
+  type = string
 }
 
 variable "Zone" {
-  type = "string"
+  type = string
   description = "Existing DNS zone to put openshift cluster in"
   default = "cc-openshift.de"
 }
 
 variable "Training" {
   description = "Nummer der Training Teilnehmer"
-  type = "string"
+  type = string
 }

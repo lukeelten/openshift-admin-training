@@ -6,5 +6,4 @@ yum -y install python-passlib pyOpenSSL python-cryptography python-lxml python2-
 systemctl enable firewalld NetworkManager rngd
 sudo -u centos -i git clone https://github.com/openshift/openshift-ansible.git
 sudo -u centos -i git clone https://github.com/lukeelten/openshift-admin-training.git workshop
-sudo -u centos -i git clone https://github.com/kubernetes-incubator/external-storage.git
 reboot

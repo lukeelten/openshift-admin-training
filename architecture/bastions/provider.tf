@@ -1,6 +1,6 @@
 provider "aws" {
   region = "eu-central-1"
-  version = "~> 2.7"
+  version = "~> 2.50"
 }
 
 data "aws_availability_zones" "frankfurt" {}
@@ -23,6 +23,6 @@ data "aws_ami" "centos" {
 }
 
 data "aws_route53_zone" "existing-zone" {
-  name = "${var.Zone}"
+  name = var.Zone
   private_zone = false
 }

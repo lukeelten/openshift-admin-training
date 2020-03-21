@@ -4,13 +4,13 @@ resource "aws_lb" "internal-lb" {
   load_balancer_type = "network"
   enable_cross_zone_load_balancing = true
 
-  subnets = "${compact(aws_subnet.subnets-private.*.id)}"
+  subnets = compact(aws_subnet.subnets-private.*.id)
   internal = true
 
   tags = {
     Type = "internal"
     Name = "Training ${var.Training} - Internal Master LB"
-    Training = "${var.Training}"
+    Training = var.Training
   }
 }
 
@@ -19,12 +19,12 @@ resource "aws_lb_target_group" "internal-lb-master" {
   port     = 8443
   protocol = "TCP"
   target_type = "ip"
-  vpc_id   = "${data.aws_vpc.vpc.id}"
+  vpc_id   = data.aws_vpc.vpc.id
   deregistration_delay = 30
   
   tags = {
     Name = "Training ${var.Training} - Internal Master Traffic"
-    Training = "${var.Training}"
+    Training = var.Training
   }
 
   health_check {
@@ -36,12 +36,12 @@ resource "aws_lb_target_group" "internal-lb-master" {
 }
 
 resource "aws_lb_listener" "internal-lb-listener" {
-  load_balancer_arn = "${aws_lb.internal-lb.arn}"
+  load_balancer_arn = aws_lb.internal-lb.arn
   port              = "8443"
   protocol          = "TCP"
 
   default_action {
-    target_group_arn = "${aws_lb_target_group.internal-lb-master.arn}"
+    target_group_arn = aws_lb_target_group.internal-lb-master.arn
     type             = "forward"
   }
 }

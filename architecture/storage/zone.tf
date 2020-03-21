@@ -1,6 +1,6 @@
 
 resource "aws_route53_record" "router-record" {
-  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  zone_id = data.aws_route53_zone.existing-zone.zone_id
   name    = "*.apps.training${var.Training}.${var.Zone}"
   type = "A"
 
@@ -9,7 +9,7 @@ resource "aws_route53_record" "router-record" {
 }
 
 resource "aws_route53_record" "master-record1" {
-  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  zone_id = data.aws_route53_zone.existing-zone.zone_id
   name    = "master0.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
 
@@ -18,7 +18,7 @@ resource "aws_route53_record" "master-record1" {
 }
 
 resource "aws_route53_record" "master-record2" {
-  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  zone_id = data.aws_route53_zone.existing-zone.zone_id
   name    = "master.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
 
@@ -27,7 +27,7 @@ resource "aws_route53_record" "master-record2" {
 }
 
 resource "aws_route53_record" "internal-api-record" {
-  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  zone_id = data.aws_route53_zone.existing-zone.zone_id
   name    = "internal-master.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
 
@@ -36,11 +36,11 @@ resource "aws_route53_record" "internal-api-record" {
 }
 
 resource "aws_route53_record" "app-records" {
-  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  zone_id = data.aws_route53_zone.existing-zone.zone_id
   name    = "app${count.index}.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
   type = "CNAME"
 
-  count = "${length(aws_instance.app-node)}"
+  count = length(aws_instance.app-node)
 
   ttl = "300"
   records = ["${aws_instance.app-node.*.private_dns[count.index]}"]

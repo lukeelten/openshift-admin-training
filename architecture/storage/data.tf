@@ -28,20 +28,20 @@ data "aws_vpc" "vpc" {
 
   tags = {
     Name = "Training ${var.Training} - VPC"
-    Training = "${var.Training}"
+    Training = var.Training
   }
 }
 
 data "aws_route_table" "public-rt" {
-  vpc_id = "${data.aws_vpc.vpc.id}"
+  vpc_id = data.aws_vpc.vpc.id
   
   tags = {
     Name = "Training ${var.Training} - Public Route Table"
-    Training = "${var.Training}"
+    Training = var.Training
   }
 }
 
 data "aws_security_group" "bastion-sg" {
-  vpc_id = "${data.aws_vpc.vpc.id}"
+  vpc_id = data.aws_vpc.vpc.id
   name = "training-${var.Training}-bastion-sg"
 }
