@@ -36,7 +36,7 @@ resource "aws_vpc" "vpc" {
 }
 
 resource "aws_internet_gateway" "igw" {
-  vpc_id = "${aws_vpc.vpc.id}"
+  vpc_id = aws_vpc.vpc.id
 
   tags = {
     Name = "Nexus - Internet Gateway"
@@ -44,10 +44,10 @@ resource "aws_internet_gateway" "igw" {
 }
 
 resource "aws_subnet" "subnet-public" {
-  vpc_id            = "${aws_vpc.vpc.id}"
-  availability_zone = "${data.aws_availability_zones.frankfurt.names[0]}"
+  vpc_id            = aws_vpc.vpc.id
+  availability_zone = data.aws_availability_zones.frankfurt.names[0]
 
-  cidr_block              = "${cidrsubnet(aws_vpc.vpc.cidr_block, 8, 1)}"
+  cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 8, 1)
   map_public_ip_on_launch = true
 
   tags = {
@@ -56,21 +56,21 @@ resource "aws_subnet" "subnet-public" {
 }
 
 resource "aws_route_table_association" "public-to-rt" {
-  subnet_id      = "${aws_subnet.subnet-public.id}"
-  route_table_id = "${aws_vpc.vpc.main_route_table_id}"
+  subnet_id      = aws_subnet.subnet-public.id
+  route_table_id = aws_vpc.vpc.main_route_table_id
 }
 
 resource "aws_route" "public-route" {
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id = "${aws_internet_gateway.igw.id}"
-  route_table_id = "${aws_vpc.vpc.main_route_table_id}"
+  gateway_id = aws_internet_gateway.igw.id
+  route_table_id = aws_vpc.vpc.main_route_table_id
 }
 
 
 resource "aws_security_group" "nexus-sg" {
   description = "Nexus Example"
   name        = "nexus"
-  vpc_id      = "${aws_vpc.vpc.id}"
+  vpc_id      = aws_vpc.vpc.id
 
   ingress {
     from_port        = 22
@@ -106,6 +106,13 @@ resource "aws_security_group" "nexus-sg" {
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
   }
+
+  ingress {
+    from_port        = 5000
+    to_port          = 5050
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
   
   ingress {
     from_port        = "-1"
@@ -127,15 +134,15 @@ resource "aws_security_group" "nexus-sg" {
 }
 
 resource "aws_instance" "nexus" {
-  depends_on      = ["aws_internet_gateway.igw"]
+  depends_on      = [aws_internet_gateway.igw]
 
-  ami             = "${data.aws_ami.centos.id}"
-  instance_type   = "m5.xlarge"
+  ami             = data.aws_ami.centos.id
+  instance_type   = "t3a.xlarge"
   key_name        = "heinlein-training-0"
-  user_data       = "${file("init.sh")}"
+  user_data       = file("init.sh")
 
   vpc_security_group_ids = ["${aws_security_group.nexus-sg.id}"]
-  subnet_id = "${aws_subnet.subnet-public.id}"
+  subnet_id = aws_subnet.subnet-public.id
   ebs_optimized = true
 
   root_block_device {
@@ -155,46 +162,46 @@ resource "aws_instance" "nexus" {
 }
 
 resource "aws_route53_record" "nexus-record" {
-  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  zone_id = data.aws_route53_zone.existing-zone.zone_id
   name    = "nexus.${data.aws_route53_zone.existing-zone.name}"
   type = "A"
 
   ttl = "300"
-  records = ["${aws_instance.nexus.public_ip}"]
+  records = [aws_instance.nexus.public_ip]
 }
 
 resource "aws_route53_record" "ldap-record" {
-  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  zone_id = data.aws_route53_zone.existing-zone.zone_id
   name    = "ldap.${data.aws_route53_zone.existing-zone.name}"
   type = "A"
 
   ttl = "300"
-  records = ["${aws_instance.nexus.public_ip}"]
+  records = [aws_instance.nexus.public_ip]
 }
 
 resource "aws_route53_record" "sso-record" {
-  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  zone_id = data.aws_route53_zone.existing-zone.zone_id
   name    = "sso.${data.aws_route53_zone.existing-zone.name}"
   type = "A"
 
   ttl = "300"
-  records = ["${aws_instance.nexus.public_ip}"]
+  records = [aws_instance.nexus.public_ip]
 }
 
 resource "aws_route53_record" "nfs-record" {
-  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  zone_id = data.aws_route53_zone.existing-zone.zone_id
   name    = "nfs.${data.aws_route53_zone.existing-zone.name}"
   type = "A"
 
   ttl = "300"
-  records = ["${aws_instance.nexus.public_ip}"]
+  records = [aws_instance.nexus.public_ip]
 }
 
 resource "aws_route53_record" "docker-record" {
-  zone_id = "${data.aws_route53_zone.existing-zone.zone_id}"
+  zone_id = data.aws_route53_zone.existing-zone.zone_id
   name    = "registry.${data.aws_route53_zone.existing-zone.name}"
   type = "A"
 
   ttl = "300"
-  records = ["${aws_instance.nexus.public_ip}"]
+  records = [aws_instance.nexus.public_ip]
 }
