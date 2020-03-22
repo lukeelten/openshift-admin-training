@@ -13,14 +13,6 @@ resource "aws_instance" "nfs" {
     volume_size = 50
   }
 
-  ebs_block_device {
-    delete_on_termination = true
-    volume_type ="gp2"
-    volume_size = 250
-    device_name = "/dev/sdb"
-  }
-
-
   lifecycle {
     create_before_destroy = true
   }

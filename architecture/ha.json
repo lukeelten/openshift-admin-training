@@ -5,8 +5,8 @@
     "App": 6
   },
   "Types":{
-    "Master":"m5.xlarge",
-    "Infra":"m5.xlarge",
-    "App":"m5.large"
+    "Master":"m5a.xlarge",
+    "Infra":"m5a.xlarge",
+    "App":"m5a.large"
   }
 }

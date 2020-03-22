@@ -18,14 +18,14 @@ resource "aws_instance" "app-node" {
   ebs_block_device {
     delete_on_termination = true
     volume_type ="gp2"
-    volume_size = 250
+    volume_size = 100
     device_name = "/dev/sdb"
   }
 
   ebs_block_device {
     delete_on_termination = true
     volume_type ="gp2"
-    volume_size = 250
+    volume_size = 100
     device_name = "/dev/sdc"
   }
 

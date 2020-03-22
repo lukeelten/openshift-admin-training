@@ -10,7 +10,7 @@ resource "aws_instance" "master-node" {
 
   root_block_device {
     volume_type = "gp2"
-    volume_size = 80
+    volume_size = 100
   }
 
   lifecycle {

@@ -20,10 +20,10 @@ resource "aws_route53_record" "master-record1" {
 resource "aws_route53_record" "master-record2" {
   zone_id = data.aws_route53_zone.existing-zone.zone_id
   name    = "master.training${var.Training}.${data.aws_route53_zone.existing-zone.name}"
-  type = "CNAME"
+  type = "A"
 
   ttl = "300"
-  records = ["${aws_instance.master-node.public_dns}"]
+  records = ["${aws_instance.master-node.public_ip}"]
 }
 
 resource "aws_route53_record" "internal-api-record" {

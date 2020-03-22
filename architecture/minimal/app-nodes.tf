@@ -12,7 +12,7 @@ resource "aws_instance" "app-node" {
 
   root_block_device {
     volume_type = "gp2"
-    volume_size = 40
+    volume_size = 50
   }
 
   lifecycle {
