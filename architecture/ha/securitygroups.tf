@@ -65,9 +65,9 @@ resource "aws_security_group" "nodes-sg" {
   vpc_id      = data.aws_vpc.vpc.id
 
   ingress {
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
     security_groups = [data.aws_security_group.bastion-sg.id]
   }
 

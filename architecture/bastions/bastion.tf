@@ -13,7 +13,7 @@ resource "aws_instance" "bastion" {
 
   root_block_device {
     volume_type = "gp2"
-    volume_size = 15
+    volume_size = 50
   }
 
   tags = {

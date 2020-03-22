@@ -65,37 +65,9 @@ resource "aws_security_group" "nodes-sg" {
   vpc_id      = data.aws_vpc.vpc.id
 
   ingress {
-    from_port        = 22
-    to_port          = 22
-    protocol         = "tcp"
-    security_groups = [data.aws_security_group.bastion-sg.id]
-  }
-
-  ingress {
-    from_port        = 111
-    to_port          = 111
-    protocol         = "tcp"
-    security_groups = [data.aws_security_group.bastion-sg.id]
-  }
-
-  ingress {
-    from_port        = 2049
-    to_port          = 2049
-    protocol         = "tcp"
-    security_groups = [data.aws_security_group.bastion-sg.id]
-  }
-
-  ingress {
-    from_port        = 111
-    to_port          = 111
-    protocol         = "udp"
-    security_groups = [data.aws_security_group.bastion-sg.id]
-  }
-
-  ingress {
-    from_port        = 2049
-    to_port          = 2049
-    protocol         = "udp"
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
     security_groups = [data.aws_security_group.bastion-sg.id]
   }
 
