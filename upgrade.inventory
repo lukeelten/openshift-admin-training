@@ -29,7 +29,7 @@ openshift_is_atomic=false
 openshift_master_default_subdomain='apps.training0.cc-openshift.de'
 openshift_master_cluster_hostname='internal-master.training0.cc-openshift.de'
 openshift_master_cluster_public_hostname='master.training0.cc-openshift.de'
-
+os_sdn_network_plugin_name='redhat/openshift-ovs-networkpolicy'
 
 openshift_logging_install_logging=true
 openshift_metrics_install_metrics=true
