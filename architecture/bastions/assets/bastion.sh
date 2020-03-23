@@ -7,6 +7,8 @@ yum -y update
 yum -y install centos-release-openshift-origin311 epel-release NetworkManager firewalld rng-tools bind-utils traceroute
 yum -y install origin-clients nano python2-passlib  httpd-tools patch java-1.8.0-openjdk-headless git gcc openssl-devel
 yum -y install python-passlib pyOpenSSL python-cryptography python-lxml python2-pip python-devel docker
+yum -y upgrade epel-release
+yum -y update
 
 # Enable services
 systemctl enable firewalld NetworkManager rngd docker
