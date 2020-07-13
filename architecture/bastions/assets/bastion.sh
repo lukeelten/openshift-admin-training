@@ -5,8 +5,14 @@ yum -y update
 
 # Install dependencies
 yum -y install centos-release-openshift-origin311 epel-release NetworkManager firewalld rng-tools bind-utils traceroute
-yum -y install origin-clients nano python2-passlib  httpd-tools patch java-1.8.0-openjdk-headless git gcc openssl-devel
-yum -y install python-passlib pyOpenSSL python-cryptography python-lxml python2-pip python-devel docker
+yum -y install origin-clients nano httpd-tools patch java-1.8.0-openjdk-headless git gcc openssl-devel docker
+
+# Python 2
+#yum install -y python2-passlib python-passlib pyOpenSSL python-cryptography python-lxml python2-pip python-devel
+
+# Python 3
+yum install -y python3-pip
+
 yum -y upgrade epel-release
 yum -y update
 
