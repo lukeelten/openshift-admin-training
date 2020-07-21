@@ -11,7 +11,7 @@ yum -y install origin-clients nano httpd-tools patch java-1.8.0-openjdk-headless
 #yum install -y python2-passlib python-passlib pyOpenSSL python-cryptography python-lxml python2-pip python-devel
 
 # Python 3
-yum install -y python3-pip
+yum install -y python3-pip libselinux-python3.x86_64
 
 yum -y upgrade epel-release
 yum -y update
